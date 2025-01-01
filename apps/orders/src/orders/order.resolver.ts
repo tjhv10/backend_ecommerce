@@ -7,7 +7,7 @@ import { Orders as Orders } from "./order.entity";
 export class OrderResolver {
   constructor(private orderService: OrderService) {}
 
-  @Query(() => [Orders])
+  @Query(() => [])
   async getOrdersWithProducts() {
     return this.orderService.getOrdersWithProducts();
   }

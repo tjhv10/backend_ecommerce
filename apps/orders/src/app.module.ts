@@ -6,13 +6,11 @@ import {
   ApolloFederationDriverConfig,
 } from "@nestjs/apollo";
 import { ConfigModule } from "@nestjs/config";
-import { DataloaderModule } from "./dataloader/dataloader.module";
-import { DataloaderService } from "./dataloader/dataloader.service";
 import { OrderModule } from "./orders/order.module";
-import { ItemModule } from "apps/items/src/item/items.module";
 import { ItemsOrderModule } from "./items_order/itemsOrder.module";
 import { ItemsOrder } from "./items_order/ItemOrder.entity";
 import { Orders } from "./orders/order.entity";
+import { Items } from "apps/items/src/item/items.entity";
 
 @Module({
   imports: [
@@ -26,22 +24,13 @@ import { Orders } from "./orders/order.entity";
       database: "Items",
       autoLoadEntities: true,
       synchronize: false,
-      entities: [Orders, ItemsOrder],
+      entities: [Orders, ItemsOrder, Items],
     }),
-    GraphQLModule.forRootAsync<ApolloFederationDriverConfig>({
+    GraphQLModule.forRoot<ApolloFederationDriverConfig>({
       driver: ApolloFederationDriver,
-      imports: [DataloaderModule],
-      useFactory: (dataloaderService: DataloaderService) => {
-        return {
-          autoSchemaFile: {
-            federation: 2,
-          },
-          context: () => ({
-            loaders: dataloaderService.getLoaders(),
-          }),
-        };
+      autoSchemaFile: {
+        federation: 2,
       },
-      inject: [DataloaderService],
     }),
     OrderModule,
     ItemsOrderModule,

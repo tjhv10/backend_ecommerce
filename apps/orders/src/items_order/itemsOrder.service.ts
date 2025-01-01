@@ -30,4 +30,7 @@ export class ItemsOrderService {
     );
     return this.ItemsOrderRepository.save(newItems_Order);
   }
+  async getItemsOrder(): Promise<ItemsOrder[]> {
+    return this.ItemsOrderRepository.find();
+  }
 }
