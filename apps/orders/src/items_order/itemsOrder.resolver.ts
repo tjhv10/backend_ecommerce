@@ -6,18 +6,18 @@ import {
   Parent,
   Context,
   ResolveReference,
+  Query,
 } from "@nestjs/graphql";
 import { ItemsOrderService } from "./itemsOrder.service";
 import { ItemsOrder } from "./ItemOrder.entity";
 import { Items } from "apps/items/src/item/items.entity";
 import { Orders } from "../orders/order.entity";
 import { ItemService } from "apps/items/src/item/items.service";
-
 @Resolver(() => ItemsOrder)
 export class ItemsOrderResolver {
   constructor(
-    private itemsOrderService: ItemsOrderService
-    // private itemsService: ItemService
+    private itemsOrderService: ItemsOrderService,
+    private itemsService: ItemService
   ) {}
   @Mutation(() => ItemsOrder)
   updateItemAmount(
@@ -27,13 +27,12 @@ export class ItemsOrderResolver {
   ) {
     return this.itemsOrderService.updateItemAmount(item_id, order_id, amount);
   }
-  // @ResolveField("item", () => [Items])
-  // async posts(@Parent() order: ItemsOrder) {
-  //   const { item_id } = order;
-  //   return this.itemsService.getItemById(item_id);
-  // }
-  //   @ResolveReference()
-  //   resolveReference(reference: { __typename: string; id: number }): User {
-  //     return this.usersService.findById(reference.id);
-  //   }
+  @Query(() => [ItemsOrder])
+  async getItemsOrder() {
+    return this.itemsOrderService.getItemsOrder();
+  }
+  @ResolveField("item", () => Items)
+  async posts(@Parent() order: ItemsOrder) {
+    return await this.itemsService.getItemById(order.item_id);
+  }
 }

@@ -1,13 +1,14 @@
 import { Resolver, Mutation, Args, Query } from "@nestjs/graphql";
 import { OrderService } from "./order.service";
 import { Orders as Orders } from "./order.entity";
+import { ItemsOrder } from "../items_order/ItemOrder.entity";
 // import { Items } from '../../items/src/item/items.entity';
 
 @Resolver(() => Orders)
 export class OrderResolver {
   constructor(private orderService: OrderService) {}
 
-  @Query(() => [])
+  @Query(() => [ItemsOrder])
   async getOrdersWithProducts() {
     return this.orderService.getOrdersWithProducts();
   }

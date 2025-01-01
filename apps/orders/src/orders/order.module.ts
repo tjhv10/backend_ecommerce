@@ -10,6 +10,5 @@ import { ItemsOrder } from "../items_order/ItemOrder.entity";
 @Module({
   imports: [TypeOrmModule.forFeature([Orders, ItemsOrder]), HttpModule],
   providers: [OrderService, OrderResolver, ItemsOrderService],
-  exports: [OrderService],
 })
 export class OrderModule {}

@@ -5,7 +5,6 @@ import { Repository } from "typeorm";
 import { HttpService } from "@nestjs/axios";
 import { firstValueFrom } from "rxjs";
 import { ItemsOrderService } from "../items_order/itemsOrder.service";
-import { OrderWithItems } from "./OrderWithItems.interface";
 
 @Injectable()
 export class OrderService {
@@ -23,7 +22,7 @@ export class OrderService {
     return true;
   }
 
-  async getOrdersWithProducts(): Promise<OrderWithItems[]> {
+  async getOrdersWithProducts() {
     const query = `
           query {
           getItems {

@@ -11,6 +11,9 @@ import { ItemsOrderModule } from "./items_order/itemsOrder.module";
 import { ItemsOrder } from "./items_order/ItemOrder.entity";
 import { Orders } from "./orders/order.entity";
 import { Items } from "apps/items/src/item/items.entity";
+import { ItemModule } from "apps/items/src/item/items.module";
+import { DataloaderModule } from "apps/items/src/dataloader/dataloader.module";
+import { DataloaderService } from "apps/items/src/dataloader/dataloader.service";
 
 @Module({
   imports: [
@@ -24,14 +27,25 @@ import { Items } from "apps/items/src/item/items.entity";
       database: "Items",
       autoLoadEntities: true,
       synchronize: false,
-      entities: [Orders, ItemsOrder, Items],
+      entities: [Items, ItemsOrder, Orders],
     }),
-    GraphQLModule.forRoot<ApolloFederationDriverConfig>({
+    GraphQLModule.forRootAsync<ApolloFederationDriverConfig>({
       driver: ApolloFederationDriver,
-      autoSchemaFile: {
-        federation: 2,
+      imports: [DataloaderModule],
+      useFactory: (dataloaderService: DataloaderService) => {
+        return {
+          autoSchemaFile: {
+            federation: 2,
+          },
+          context: () => ({
+            loaders: dataloaderService.getLoaders(),
+          }),
+        };
       },
+      inject: [DataloaderService],
     }),
+    ItemModule,
+    DataloaderModule,
     OrderModule,
     ItemsOrderModule,
   ],

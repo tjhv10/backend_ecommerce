@@ -7,7 +7,7 @@ import { ItemService } from "apps/items/src/item/items.service";
 import { Items } from "apps/items/src/item/items.entity";
 
 @Module({
-  imports: [TypeOrmModule.forFeature([ItemsOrder])],
-  providers: [ItemsOrderResolver, ItemsOrderService],
+  imports: [TypeOrmModule.forFeature([ItemsOrder, Items])],
+  providers: [ItemsOrderResolver, ItemsOrderService, ItemService],
 })
 export class ItemsOrderModule {}
