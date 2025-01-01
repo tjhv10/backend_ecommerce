@@ -3,7 +3,7 @@ import { Column, Entity, PrimaryColumn } from "typeorm";
 
 @ObjectType()
 @Entity()
-export class Order {
+export class Orders {
   @Field(() => ID)
   @PrimaryColumn()
   id: number;

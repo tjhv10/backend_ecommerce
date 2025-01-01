@@ -47,8 +47,7 @@ export class ItemResolver {
     return this.itemService.updateItemStatus(id, status);
   }
 
-  // @ResolveField('categories', () => [Category])
-  @ResolveField(() => [Category])
+  @ResolveField("categories", () => [Category])
   async getCategories(
     @Parent() item: Items,
     @Context() { loaders }: { loaders: IDataloaders }

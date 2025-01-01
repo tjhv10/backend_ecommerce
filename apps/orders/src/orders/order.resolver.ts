@@ -1,14 +1,24 @@
-import { Resolver, Mutation, Args } from "@nestjs/graphql";
+import { Resolver, Mutation, Args, Query } from "@nestjs/graphql";
 import { OrderService } from "./order.service";
-import { Order as Order } from "./order.entity";
+import { Orders as Orders } from "./order.entity";
 // import { Items } from '../../items/src/item/items.entity';
 
-@Resolver(() => Order)
+@Resolver(() => Orders)
 export class OrderResolver {
   constructor(private orderService: OrderService) {}
 
+  @Query(() => [Orders])
+  async getOrdersWithProducts() {
+    return this.orderService.getOrdersWithProducts();
+  }
+
+  @Query(() => [Orders])
+  getOrdersWithProductsWithIdUnder300() {
+    return this.orderService.getOrdersWithProductsWithIdUnder300();
+  }
+
   @Mutation(() => Boolean)
-  async deleteItem(@Args("id") id: number): Promise<boolean> {
-    return this.orderService.deleteItem(id);
+  async deleteOrder(@Args("id") id: number): Promise<boolean> {
+    return this.orderService.deleteOrder(id);
   }
 }

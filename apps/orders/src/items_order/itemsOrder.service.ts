@@ -11,7 +11,7 @@ export class ItemsOrderService {
     @InjectRepository(ItemsOrder)
     private ItemsOrderRepository: Repository<ItemsOrder>
   ) {}
-  async updateItemPrice(
+  async updateItemAmount(
     order_id: number,
     item_id: number,
     amount: number

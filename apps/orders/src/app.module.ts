@@ -12,7 +12,7 @@ import { OrderModule } from "./orders/order.module";
 import { ItemModule } from "apps/items/src/item/items.module";
 import { ItemsOrderModule } from "./items_order/itemsOrder.module";
 import { ItemsOrder } from "./items_order/ItemOrder.entity";
-import { Order } from "./orders/order.entity";
+import { Orders } from "./orders/order.entity";
 
 @Module({
   imports: [
@@ -26,7 +26,7 @@ import { Order } from "./orders/order.entity";
       database: "Items",
       autoLoadEntities: true,
       synchronize: false,
-      entities: [Order, ItemsOrder],
+      entities: [Orders, ItemsOrder],
     }),
     GraphQLModule.forRootAsync<ApolloFederationDriverConfig>({
       driver: ApolloFederationDriver,
