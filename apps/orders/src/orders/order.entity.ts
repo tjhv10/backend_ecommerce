@@ -1,10 +1,14 @@
 import { Field, ID, ObjectType } from "@nestjs/graphql";
+import { Column, Entity, PrimaryColumn } from "typeorm";
 
 @ObjectType()
-export class Orders {
+@Entity()
+export class Order {
   @Field(() => ID)
+  @PrimaryColumn()
   id: number;
 
   @Field(() => Date)
+  @Column()
   order_date: Date;
 }

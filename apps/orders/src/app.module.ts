@@ -11,6 +11,8 @@ import { DataloaderService } from "./dataloader/dataloader.service";
 import { OrderModule } from "./orders/order.module";
 import { ItemModule } from "apps/items/src/item/items.module";
 import { ItemsOrderModule } from "./items_order/itemsOrder.module";
+import { ItemsOrder } from "./items_order/ItemOrder.entity";
+import { Order } from "./orders/order.entity";
 
 @Module({
   imports: [
@@ -23,8 +25,8 @@ import { ItemsOrderModule } from "./items_order/itemsOrder.module";
       password: "02082003",
       database: "Items",
       autoLoadEntities: true,
-      synchronize: true,
-      entities: [],
+      synchronize: false,
+      entities: [Order, ItemsOrder],
     }),
     GraphQLModule.forRootAsync<ApolloFederationDriverConfig>({
       driver: ApolloFederationDriver,

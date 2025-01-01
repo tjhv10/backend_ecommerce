@@ -1,5 +1,5 @@
 import { InputType, Field, ID } from "@nestjs/graphql";
-import { Items } from "../entities/items.entity";
+import { Items } from "apps/items/src/item/items.entity";
 
 @InputType()
 export class CreatePostInput {

@@ -1,10 +1,9 @@
 import { Resolver, Mutation, Args } from "@nestjs/graphql";
 import { OrderService } from "./order.service";
-import { Items } from "./entities/items.entity";
-import { Orders as Orders } from "./entities/order.entity";
+import { Order as Order } from "./order.entity";
 // import { Items } from '../../items/src/item/items.entity';
 
-@Resolver(() => Orders)
+@Resolver(() => Order)
 export class OrderResolver {
   constructor(private orderService: OrderService) {}
 

@@ -1,5 +1,5 @@
-import DataLoader from 'dataloader';
-import { Category } from '../orders/entities/categories.entity';
+import { Category } from "apps/items/src/category/categories.entity";
+import DataLoader from "dataloader";
 
 export interface IDataloaders {
   itemCategoryLoader: DataLoader<number, Category[]>;
