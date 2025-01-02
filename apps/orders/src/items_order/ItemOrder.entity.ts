@@ -1,13 +1,16 @@
-import { Field, Int, ObjectType } from "@nestjs/graphql";
+import { Directive, Field, Int, ObjectType } from "@nestjs/graphql";
 import { Column, Entity, ManyToOne, PrimaryColumn } from "typeorm";
 import { IsInt } from "class-validator";
 import { Items } from "apps/items/src/item/items.entity";
+import { Orders } from "../orders/order.entity";
 
 @ObjectType()
 @Entity()
+@Directive('@key(fields: "id")')
+@Directive("@shareable")
 export class ItemsOrder {
-  // @ManyToOne(() => Order, (order: Order) => order.id, {
-  //   onDelete: 'CASCADE',
+  // @ManyToOne(() => Orders, (order: Orders) => order.id, {
+  //   onDelete: "CASCADE",
   // })
   @IsInt()
   @PrimaryColumn()
