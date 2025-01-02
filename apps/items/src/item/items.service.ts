@@ -1,15 +1,15 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
-import { InjectRepository } from '@nestjs/typeorm';
-import { Items } from './items.entity';
-import { Repository } from 'typeorm';
-import { ItemStatus } from './items-status.enum';
+import { Injectable, NotFoundException } from "@nestjs/common";
+import { InjectRepository } from "@nestjs/typeorm";
+import { Items } from "./items.entity";
+import { Repository } from "typeorm";
+import { ItemStatus } from "../../../../packages/enum/items-status.enum";
 // import { ItemStatus } from '../../../item_status';
 
 @Injectable()
 export class ItemService {
   constructor(
     @InjectRepository(Items)
-    private itemRepository: Repository<Items>,
+    private itemRepository: Repository<Items>
   ) {}
   async getItems(): Promise<Items[]> {
     return await this.itemRepository.find({
@@ -20,7 +20,7 @@ export class ItemService {
     const found = await this.itemRepository.findOne({ where: { id } });
     if (!found) {
       throw new NotFoundException(
-        `Item not found by id "${id}", id doesnt exist`,
+        `Item not found by id "${id}", id doesnt exist`
       );
     } else return found;
   }
@@ -29,7 +29,7 @@ export class ItemService {
     const found = await this.itemRepository.findOne({ where: { id } });
     if (!found) {
       throw new NotFoundException(
-        `Item not found by id "${id}", id doesnt exist`,
+        `Item not found by id "${id}", id doesnt exist`
       );
     } else return true;
   }

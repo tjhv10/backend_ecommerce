@@ -27,7 +27,7 @@
     "orders": {
       "type": "application",
       "root": "orders",
-      "sourceRoot": "orders/src",
+      "sourceRoot": "apps/orders/src",
       "compilerOptions": {
         "tsConfigPath": "apps/orders/tsconfig.app.json"
       }

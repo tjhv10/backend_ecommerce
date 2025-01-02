@@ -41,8 +41,6 @@ export class DataloaderService {
         const itemsOrder = await this.itemsOrderService.getItemsOfOrderByBatch(
           keys as number[]
         );
-        console.log("itemsOrder", itemsOrder);
-
         return itemsOrder.map((itemsOrderArray) =>
           itemsOrderArray.map((itemOrder) => itemOrder)
         );

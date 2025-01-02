@@ -9,9 +9,9 @@ import {
 } from "@nestjs/graphql";
 import { ItemService } from "./items.service";
 import { Items } from "./items.entity";
-import { ItemStatus } from "./items-status.enum";
-import { Category } from "../category/categories.entity";
 import { IDataloaders } from "../dataloader/dataloader.interface";
+import { ItemStatus } from "packages/enum/items-status.enum";
+import { Category } from "../category/categories.entity";
 // import { ItemStatus } from '../../../item_status';
 @Resolver(() => Items)
 export class ItemResolver {
