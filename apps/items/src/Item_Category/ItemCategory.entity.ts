@@ -1,14 +1,14 @@
-import { Field, Int, ObjectType } from '@nestjs/graphql';
-import { Items } from '../item/items.entity';
-import { Column, Entity, ManyToOne, PrimaryColumn } from 'typeorm';
-import { IsInt } from 'class-validator';
-import { Category } from '../category/categories.entity';
+import { Field, Int, ObjectType } from "@nestjs/graphql";
+import { Items } from "../item/items.entity";
+import { Column, Entity, ManyToOne, PrimaryColumn } from "typeorm";
+import { IsInt } from "class-validator";
+import { Category } from "../category/categories.entity";
 
-@ObjectType('itemsCategories')
-@Entity('items_categories')
+@ObjectType("itemsCategories")
+@Entity("items_categories")
 export class ItemsCategories {
   @ManyToOne(() => Category, (category: Category) => category.id, {
-    onDelete: 'CASCADE',
+    onDelete: "CASCADE",
   })
   @IsInt()
   @Field(() => Category)
@@ -20,7 +20,7 @@ export class ItemsCategories {
   @PrimaryColumn()
   categoryId: number;
 
-  @ManyToOne(() => Items, (item: Items) => item.id, { onDelete: 'CASCADE' })
+  @ManyToOne(() => Items, (item: Items) => item.id, { onDelete: "CASCADE" })
   @IsInt()
   @Field(() => Items)
   item: Items;

@@ -3,7 +3,6 @@ import { InjectRepository } from "@nestjs/typeorm";
 import { Items } from "./items.entity";
 import { Repository } from "typeorm";
 import { ItemStatus } from "../../../../packages/enum/items-status.enum";
-// import { ItemStatus } from '../../../item_status';
 
 @Injectable()
 export class ItemService {

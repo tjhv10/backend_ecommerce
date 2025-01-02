@@ -31,7 +31,6 @@ import { DataloaderService } from "./dataloader/dataloader.service";
       password: "02082003",
       database: "Items",
       autoLoadEntities: true,
-      synchronize: true,
       entities: [Items, Category, ItemsCategories],
     }),
     GraphQLModule.forRootAsync<ApolloFederationDriverConfig>({

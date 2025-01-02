@@ -1,7 +1,6 @@
 import { Entity, Column, PrimaryColumn, ManyToMany, JoinTable } from "typeorm";
 import { Directive, Field, Int, ObjectType } from "@nestjs/graphql";
 import { ItemStatus } from "../../../../packages/enum/items-status.enum";
-// import { ItemStatus } from '../../../item_status';
 import { IsInt } from "class-validator";
 import { Category } from "../category/categories.entity";
 

@@ -21,11 +21,6 @@ export class OrderResolver {
     return this.orderService.getOrdersWithProducts();
   }
 
-  @Query(() => [Orders])
-  getOrdersWithProductsWithIdUnder300() {
-    return this.orderService.getOrdersWithProductsWithIdUnder300();
-  }
-
   @Mutation(() => Boolean)
   async deleteOrder(@Args("id") id: number): Promise<boolean> {
     return this.orderService.deleteOrder(id);

@@ -2,18 +2,12 @@ import { Injectable, NotFoundException } from "@nestjs/common";
 import { Orders } from "./order.entity";
 import { InjectRepository } from "@nestjs/typeorm";
 import { Repository } from "typeorm";
-import { HttpService } from "@nestjs/axios";
-import { firstValueFrom } from "rxjs";
-import { ItemsOrderService } from "../items_order/itemsOrder.service";
-import { log } from "console";
 
 @Injectable()
 export class OrderService {
   constructor(
     @InjectRepository(Orders)
-    private orderRepository: Repository<Orders>,
-    private readonly httpService: HttpService,
-    private readonly itemsOrderService: ItemsOrderService
+    private orderRepository: Repository<Orders>
   ) {}
   async deleteOrder(id: number) {
     const result = await this.orderRepository.delete(id);
@@ -23,11 +17,21 @@ export class OrderService {
     return true;
   }
 
-  async getOrdersWithProducts() {
-    return this.orderRepository.find();
+  async getordersById(id: number) {
+    return this.orderRepository.findOne({ where: { id: id } });
   }
+  async createOrder(id: number, orderDate: Date) {
+    if ((await this.getordersById(id)) !== null) {
+      return;
+    }
+    const order = this.orderRepository.create({
+      id: id,
+      order_date: orderDate,
+    });
 
-  async getOrdersWithProductsWithIdUnder300(): Promise<Orders[]> {
+    return this.orderRepository.save(order);
+  }
+  async getOrdersWithProducts() {
     return this.orderRepository.find();
   }
 }

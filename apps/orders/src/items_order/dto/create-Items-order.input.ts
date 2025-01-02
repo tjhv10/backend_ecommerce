@@ -1,21 +1,19 @@
-import { InputType, Field, ID, Int } from "@nestjs/graphql";
+import { InputType, Field, Int } from "@nestjs/graphql";
 import { IsInt } from "class-validator";
 import { PrimaryColumn } from "typeorm";
-import { Orders } from "../../orders/order.entity";
-import { Items } from "../../../../items/src/item/items.entity";
 
 @InputType()
-export class CreateItems_orderInput {
-  @IsInt()
+export class CreateItemsOrderInput {
   @PrimaryColumn()
   @Field(() => Int)
-  @PrimaryColumn()
   id: number;
 
   @PrimaryColumn()
+  @Field(() => Int)
   item_id: number;
 
   @PrimaryColumn()
+  @Field(() => Int)
   order_id: number;
 
   @IsInt()

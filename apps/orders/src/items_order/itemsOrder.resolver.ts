@@ -10,6 +10,7 @@ import { ItemsOrderService } from "./itemsOrder.service";
 import { ItemsOrder } from "./ItemOrder.entity";
 import { Items } from "apps/items/src/item/items.entity";
 import { ItemService } from "apps/items/src/item/items.service";
+import { CreateItemsOrderInput } from "./dto/create-Items-order.input";
 @Resolver(() => ItemsOrder)
 export class ItemsOrderResolver {
   constructor(
@@ -27,6 +28,12 @@ export class ItemsOrderResolver {
   @Query(() => [ItemsOrder])
   async getItemsOrder() {
     return this.itemsOrderService.getItemsOrder();
+  }
+  @Mutation(() => ItemsOrder)
+  async createItemOrder(
+    @Args("createItemsOrderInput") createItemsOrderInput: CreateItemsOrderInput
+  ) {
+    return this.itemsOrderService.createrItemOrder(createItemsOrderInput);
   }
 
   @ResolveField("item", () => Items)

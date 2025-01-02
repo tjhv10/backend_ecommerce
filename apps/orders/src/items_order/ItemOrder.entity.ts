@@ -1,4 +1,4 @@
-import { Field, Int, ObjectType, Parent, ResolveField } from "@nestjs/graphql";
+import { Field, Int, ObjectType } from "@nestjs/graphql";
 import { Column, Entity, ManyToOne, PrimaryColumn } from "typeorm";
 import { IsInt } from "class-validator";
 import { Items } from "apps/items/src/item/items.entity";
