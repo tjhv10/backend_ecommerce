@@ -1,10 +1,10 @@
 import { Module } from "@nestjs/common";
 import { DataloaderService } from "./dataloader.service";
-import { TypeOrmModule } from "@nestjs/typeorm";
 import { ItemCategoriesModule } from "../Item_Category/ItemCategory.module";
+import { ItemsOrderModule } from "apps/orders/src/items_order/itemsOrder.module";
 
 @Module({
-  imports: [ItemCategoriesModule],
+  imports: [ItemCategoriesModule, ItemsOrderModule],
   providers: [DataloaderService],
   exports: [DataloaderService],
 })

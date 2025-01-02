@@ -30,8 +30,6 @@ export class ItemsOrder {
   @Column()
   amount: number;
 
-  @ResolveField(() => Items)
-  getItem(@Parent() itemsOrder: ItemsOrder): any {
-    return { __typename: "Items", id: itemsOrder.item_id };
-  }
+  @Field(() => Items)
+  item: Items;
 }
