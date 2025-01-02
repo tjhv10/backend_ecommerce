@@ -67,6 +67,7 @@ export class ItemsOrderService {
       throw new NotFoundException("itemsOrderId already exists");
     }
     if (this.getItemById(createItemsOrderInput.item_id) === null) {
+      //TODO check if works
       throw new NotFoundException("item_id does not exist");
     }
 
