@@ -14,5 +14,5 @@ export class Orders {
   order_date: Date;
 
   @Field(() => [ItemsOrder])
-  Items: ItemsOrder[];
+  itemsOrder: ItemsOrder[];
 }

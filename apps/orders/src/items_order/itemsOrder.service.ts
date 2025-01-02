@@ -10,8 +10,7 @@ import { ItemService } from "apps/items/src/item/items.service";
 export class ItemsOrderService {
   constructor(
     @InjectRepository(ItemsOrder)
-    private ItemsOrderRepository: Repository<ItemsOrder>,
-    private itemOrderService: ItemsOrderService
+    private ItemsOrderRepository: Repository<ItemsOrder>
   ) {}
   async updateItemAmount(
     order_id: number,
@@ -48,8 +47,6 @@ export class ItemsOrderService {
   public async getItemsOfOrderByBatch(
     orderIds: readonly number[]
   ): Promise<ItemsOrder[][]> {
-    return Promise.all(
-      orderIds.map((id) => this.itemOrderService.getItemsOrdersByOrderId(id))
-    );
+    return Promise.all(orderIds.map((id) => this.getItemsOrdersByOrderId(id)));
   }
 }

@@ -4,14 +4,11 @@ import {
   Args,
   ResolveField,
   Parent,
-  Context,
-  ResolveReference,
   Query,
 } from "@nestjs/graphql";
 import { ItemsOrderService } from "./itemsOrder.service";
 import { ItemsOrder } from "./ItemOrder.entity";
 import { Items } from "apps/items/src/item/items.entity";
-import { Orders } from "../orders/order.entity";
 import { ItemService } from "apps/items/src/item/items.service";
 @Resolver(() => ItemsOrder)
 export class ItemsOrderResolver {

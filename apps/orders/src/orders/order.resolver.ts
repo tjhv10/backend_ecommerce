@@ -11,13 +11,12 @@ import { OrderService } from "./order.service";
 import { Orders as Orders } from "./order.entity";
 import { ItemsOrder } from "../items_order/ItemOrder.entity";
 import { IDataloaders } from "apps/items/src/dataloader/dataloader.interface";
-// import { Items } from '../../items/src/item/items.entity';
 
 @Resolver(() => Orders)
 export class OrderResolver {
   constructor(private orderService: OrderService) {}
 
-  @Query(() => [ItemsOrder])
+  @Query(() => [Orders])
   async getOrdersWithProducts() {
     return this.orderService.getOrdersWithProducts();
   }
@@ -32,7 +31,7 @@ export class OrderResolver {
     return this.orderService.deleteOrder(id);
   }
 
-  @ResolveField("itemsOfOrder", () => [ItemsOrder])
+  @ResolveField("itemsOrder", () => [ItemsOrder])
   async getItems(
     @Parent() order: Orders,
     @Context() { loaders }: { loaders: IDataloaders }

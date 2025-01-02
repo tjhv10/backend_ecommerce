@@ -5,6 +5,7 @@ import { Repository } from "typeorm";
 import { HttpService } from "@nestjs/axios";
 import { firstValueFrom } from "rxjs";
 import { ItemsOrderService } from "../items_order/itemsOrder.service";
+import { log } from "console";
 
 @Injectable()
 export class OrderService {
@@ -23,40 +24,7 @@ export class OrderService {
   }
 
   async getOrdersWithProducts() {
-    const query = `
-          query {
-          getItems {
-            id
-            name
-            price
-            upload_date
-            description
-            seller_name
-            categories
-            {
-              id
-              name
-            }
-          }
-        }
-      `;
-    const orders = await this.itemsOrderService.getItemsOrder();
-    const items = (
-      await firstValueFrom(
-        this.httpService.post("http://localhost:3000/graphql", { query })
-      )
-    ).data.data.getItems;
-    const toReturn = [];
-    orders.forEach((order) => {
-      const orderWithItems = {
-        ...order,
-        items: items.filter(
-          (item: { id: number }) => order.item_id === item.id
-        ),
-      };
-      toReturn.push(orderWithItems);
-    });
-    return toReturn;
+    return this.orderRepository.find();
   }
 
   async getOrdersWithProductsWithIdUnder300(): Promise<Orders[]> {
