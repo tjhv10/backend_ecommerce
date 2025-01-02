@@ -20,6 +20,11 @@ import { DataloaderService } from "./dataloader/dataloader.service";
     ConfigModule.forRoot({ envFilePath: ".env" }),
     TypeOrmModule.forRoot({
       type: "postgres",
+      // host: process.env.HOST,
+      // port: parseInt(process.env.PORT),
+      // username: process.env.USERNAME,
+      // password: process.env.PASSWORD,
+      // database: process.env.DATABASE,
       host: "localhost",
       port: 5432,
       username: "postgres",
