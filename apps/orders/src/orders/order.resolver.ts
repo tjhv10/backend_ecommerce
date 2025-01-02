@@ -6,12 +6,11 @@ import {
   ResolveField,
   Parent,
   Context,
-  Directive,
 } from "@nestjs/graphql";
 import { OrderService } from "./order.service";
 import { Orders as Orders } from "./order.entity";
 import { ItemsOrder } from "../items_order/ItemOrder.entity";
-import { IDataloaders } from "apps/items/src/dataloader/dataloader.interface";
+import { IDataloaders } from "apps/orders/dataloader/dataloader.interface";
 
 @Resolver(() => Orders)
 export class OrderResolver {

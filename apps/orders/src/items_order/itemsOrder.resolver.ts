@@ -9,15 +9,11 @@ import {
 import { ItemsOrderService } from "./itemsOrder.service";
 import { ItemsOrder } from "./ItemOrder.entity";
 import { Items } from "apps/items/src/item/items.entity";
-import { ItemService } from "apps/items/src/item/items.service";
 import { CreateItemsOrderInput } from "./dto/create-Items-order.input";
 
 @Resolver(() => ItemsOrder)
 export class ItemsOrderResolver {
-  constructor(
-    private itemsOrderService: ItemsOrderService,
-    private itemsService: ItemService
-  ) {}
+  constructor(private itemsOrderService: ItemsOrderService) {}
   @Mutation(() => ItemsOrder)
   updateItemAmount(
     @Args("item_id") item_id: number,
@@ -39,6 +35,6 @@ export class ItemsOrderResolver {
 
   @ResolveField("item", () => Items)
   async item(@Parent() itemsOrder: ItemsOrder) {
-    return await this.itemsService.getItemById(itemsOrder.item_id);
+    return await this.itemsOrderService.getItemById(itemsOrder.item_id);
   }
 }

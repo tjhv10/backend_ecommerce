@@ -6,6 +6,7 @@ import { CreateItemsOrderInput } from "./dto/create-Items-order.input";
 import { HttpService } from "@nestjs/axios";
 import { firstValueFrom } from "rxjs";
 import { OrderService } from "../orders/order.service";
+import { Items } from "apps/items/src/item/items.entity";
 
 @Injectable()
 export class ItemsOrderService {
@@ -27,6 +28,29 @@ export class ItemsOrderService {
     return this.ItemsOrderRepository.save(item);
   }
 
+  async getItemById(item_id: number): Promise<Items> {
+    const query = `
+      query {
+        getItemById(id: ${item_id}) {
+          id
+          name
+          price
+          upload_date
+          description
+          seller_name
+          categories {
+            id
+            name
+          }
+        }
+      }
+    `;
+    const response = await firstValueFrom(
+      this.httpService.post("http://localhost:3000/graphql", { query })
+    );
+    return response.data.data.getItemById;
+  }
+
   async createrItemOrder(
     createItemsOrderInput: CreateItemsOrderInput
   ): Promise<ItemsOrder> {
@@ -42,28 +66,9 @@ export class ItemsOrderService {
     ) {
       throw new NotFoundException("itemsOrderId already exists");
     }
-    const query = `
-          query {
-          getItemById(id: ${createItemsOrderInput.item_id}) {
-            id
-            name
-            price
-            upload_date
-            description
-            seller_name
-            categories
-            {
-              id
-              name
-            }
-          }
-        }
-      `;
-    (
-      await firstValueFrom(
-        this.httpService.post("http://localhost:3000/graphql", { query })
-      )
-    ).data.data.getItemById;
+    if (this.getItemById(createItemsOrderInput.item_id) === null) {
+      throw new NotFoundException("item_id does not exist");
+    }
 
     const newItems_Order = this.ItemsOrderRepository.create(
       createItemsOrderInput

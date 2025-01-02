@@ -9,9 +9,9 @@ import { Orders } from "../orders/order.entity";
 @Directive('@key(fields: "id")')
 @Directive("@shareable")
 export class ItemsOrder {
-  // @ManyToOne(() => Orders, (order: Orders) => order.id, {
-  //   onDelete: "CASCADE",
-  // })
+  @ManyToOne(() => Orders, (order: Orders) => order.id, {
+    onDelete: "CASCADE",
+  })
   @IsInt()
   @PrimaryColumn()
   @Field(() => Int)

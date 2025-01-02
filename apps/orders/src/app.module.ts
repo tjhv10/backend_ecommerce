@@ -12,8 +12,8 @@ import { ItemsOrder } from "./items_order/ItemOrder.entity";
 import { Orders } from "./orders/order.entity";
 import { Items } from "apps/items/src/item/items.entity";
 import { ItemModule } from "apps/items/src/item/items.module";
-import { DataloaderModule } from "apps/items/src/dataloader/dataloader.module";
-import { DataloaderService } from "apps/items/src/dataloader/dataloader.service";
+import { DataloaderModule } from "../dataloader/dataloader.module";
+import { DataloaderService } from "../dataloader/dataloader.service";
 
 @Module({
   imports: [
@@ -31,7 +31,7 @@ import { DataloaderService } from "apps/items/src/dataloader/dataloader.service"
       password: "02082003",
       database: "Items",
       autoLoadEntities: true,
-      entities: [Items, ItemsOrder, Orders],
+      entities: [ItemsOrder, Orders],
     }),
     GraphQLModule.forRootAsync<ApolloFederationDriverConfig>({
       driver: ApolloFederationDriver,
@@ -48,7 +48,6 @@ import { DataloaderService } from "apps/items/src/dataloader/dataloader.service"
       },
       inject: [DataloaderService],
     }),
-    ItemModule,
     DataloaderModule,
     OrderModule,
     ItemsOrderModule,
