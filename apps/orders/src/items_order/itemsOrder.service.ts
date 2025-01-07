@@ -28,7 +28,7 @@ export class ItemsOrderService {
     return this.ItemsOrderRepository.save(item);
   }
 
-  async getItemById(item_id: number): Promise<Items> {
+  async getItemByIdFromItems(item_id: number): Promise<Items> {
     const query = `
       query {
         getItemById(id: ${item_id}) {
@@ -48,6 +48,8 @@ export class ItemsOrderService {
     const response = await firstValueFrom(
       this.httpService.post("http://localhost:3000/graphql", { query })
     );
+    console.log(response.data.data.getItemById);
+
     return response.data.data.getItemById;
   }
 
@@ -66,7 +68,9 @@ export class ItemsOrderService {
     ) {
       throw new NotFoundException("itemsOrderId already exists");
     }
-    if (this.getItemById(createItemsOrderInput.item_id) === undefined) {
+    if (
+      this.getItemByIdFromItems(createItemsOrderInput.item_id) === undefined
+    ) {
       //TODO check if works
       throw new NotFoundException("itemId does not exist");
     }

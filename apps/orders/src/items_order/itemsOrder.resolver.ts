@@ -23,8 +23,8 @@ export class ItemsOrderResolver {
     return this.itemsOrderService.updateItemAmount(item_id, order_id, amount);
   }
   @Query(() => Items)
-  async getItemById(@Args("id") id: number): Promise<Items> {
-    return this.itemsOrderService.getItemById(id);
+  async getItemByIdFromItems(@Args("id") id: number): Promise<Items> {
+    return this.itemsOrderService.getItemByIdFromItems(id);
   }
   @Query(() => [ItemsOrder])
   async getItemsOrder() {
@@ -39,6 +39,8 @@ export class ItemsOrderResolver {
 
   @ResolveField("item", () => Items)
   async item(@Parent() itemsOrder: ItemsOrder) {
-    return await this.itemsOrderService.getItemById(itemsOrder.item_id);
+    return await this.itemsOrderService.getItemByIdFromItems(
+      itemsOrder.item_id
+    );
   }
 }

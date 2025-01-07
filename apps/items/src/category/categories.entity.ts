@@ -4,7 +4,6 @@ import { Column, Entity, PrimaryColumn } from "typeorm";
 
 @Entity()
 @ObjectType()
-@Directive('@key(fields: "id")')
 @Directive("@shareable")
 export class Category {
   @PrimaryColumn()

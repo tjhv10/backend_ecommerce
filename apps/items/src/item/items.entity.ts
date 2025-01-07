@@ -6,7 +6,6 @@ import { Category } from "../category/categories.entity";
 
 @ObjectType()
 @Entity()
-@Directive('@key(fields: "id")')
 @Directive("@shareable")
 export class Items {
   @IsInt()

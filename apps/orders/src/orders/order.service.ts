@@ -32,6 +32,7 @@ export class OrderService {
     return this.orderRepository.save(order);
   }
   async getOrdersWithProducts() {
+    console.log("hi");
     return this.orderRepository.find();
   }
 }
