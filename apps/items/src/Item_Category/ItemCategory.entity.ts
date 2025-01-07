@@ -11,7 +11,6 @@ export class ItemsCategories {
   @ManyToOne(() => Category, (category: Category) => category.id, {
     onDelete: "CASCADE",
   })
-  @IsInt()
   @Field(() => Category)
   category: Category;
 
@@ -22,7 +21,6 @@ export class ItemsCategories {
   categoryId: number;
 
   @ManyToOne(() => Items, (item: Items) => item.id, { onDelete: "CASCADE" })
-  @IsInt()
   @Field(() => Items)
   item: Items;
 }

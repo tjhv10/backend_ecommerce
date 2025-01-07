@@ -14,7 +14,7 @@ export class Orders {
   @Field(() => Date)
   @Column()
   order_date: Date;
-
-  @OneToMany(() => ItemsOrder, (itemsOrder) => itemsOrder.order_id)
+  @OneToMany(() => ItemsOrder, (ItemOrder) => ItemOrder.order)
+  @Field(() => [ItemsOrder])
   itemsOrder: ItemsOrder[];
 }

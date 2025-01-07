@@ -13,7 +13,7 @@ export class OrderService {
   async deleteOrder(id: number) {
     const result = await this.orderRepository.delete(id);
     if (result.affected === 0) {
-      throw new NotFoundException(`Order with ID "${id}" not found`);
+      throw new NotFoundException(`Item with ID "${id}" not found`);
     }
     return true;
   }
