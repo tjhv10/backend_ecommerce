@@ -3,6 +3,11 @@ import { InjectRepository } from "@nestjs/typeorm";
 import { Items } from "./items.entity";
 import { Repository } from "typeorm";
 import { ItemStatus } from "../../../../packages/enum/items-status.enum";
+import {
+  CategoryEnum,
+  subcategoryEnum,
+  DateEnum,
+} from "../../../../packages/enum/items-filter.enum";
 
 @Injectable()
 export class ItemService {
@@ -52,5 +57,36 @@ export class ItemService {
     const item = await this.getItemById(id);
     item.price = price;
     return this.itemRepository.save(item);
+  }
+
+  async filterItems(
+    items: Items[],
+    category: CategoryEnum,
+    subcategory: DateEnum | number[] | subcategoryEnum
+  ): Promise<Items[]> {
+    switch (category) {
+      case CategoryEnum.Price: {
+        return items.map((item) => {
+          if (
+            item.price <= (subcategory[1] as number) &&
+            item.price >= (subcategory[0] as number)
+          )
+            return item;
+        });
+      }
+      case CategoryEnum["Uploaded date"]: {
+        return items.map((item) => {
+          if (item.upload_date.toString() <= subcategory) return item;
+        });
+      }
+      case CategoryEnum.Category: {
+        return items.map((item) => {
+          const categoryNames = item.categories.map(
+            (category) => category.name
+          );
+          if (categoryNames.includes(subcategory as string)) return item;
+        });
+      }
+    }
   }
 }

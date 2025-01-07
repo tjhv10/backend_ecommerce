@@ -26,7 +26,7 @@ export class Items {
   @Column()
   description: string;
 
-  @Field(() => String)
+  @Field(() => Int)
   @Column()
   price: number;
 
@@ -42,12 +42,6 @@ export class Items {
   @Column()
   status: ItemStatus;
 
-  // @ManyToMany(() => Category)
-  // @JoinTable({
-  //   name: "items_categories",
-  //   joinColumn: { name: "itemId" },
-  //   inverseJoinColumn: { name: "categoryId" },
-  // })
   @Field(() => [Category])
   categories: Category[];
 }

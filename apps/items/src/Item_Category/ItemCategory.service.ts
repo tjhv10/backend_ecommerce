@@ -26,7 +26,6 @@ export class ItemsCategoriesService {
         `Item with id "${id}" dosent have categories`
       );
     }
-
     return found;
   }
 
