@@ -1,5 +1,5 @@
 import { Directive, Field, Int, ObjectType } from "@nestjs/graphql";
-import { Items } from "../item/items.entity";
+import { Item } from "../item/item.entity";
 import { Column, Entity, ManyToOne, PrimaryColumn } from "typeorm";
 import { IsInt } from "class-validator";
 import { Category } from "../category/categories.entity";
@@ -20,7 +20,7 @@ export class ItemsCategories {
   @PrimaryColumn()
   categoryId: number;
 
-  @ManyToOne(() => Items, (item: Items) => item.id, { onDelete: "CASCADE" })
-  @Field(() => Items)
-  item: Items;
+  @ManyToOne(() => Item, (item: Item) => item.id, { onDelete: "CASCADE" })
+  @Field(() => Item)
+  item: Item;
 }

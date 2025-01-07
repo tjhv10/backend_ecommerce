@@ -8,7 +8,7 @@ import {
 } from "@nestjs/graphql";
 import { ItemsOrderService } from "./itemsOrder.service";
 import { ItemsOrder } from "./ItemOrder.entity";
-import { Items } from "apps/items/src/item/items.entity";
+import { Item } from "apps/items/src/item/item.entity";
 import { CreateItemsOrderInput } from "./dto/create-Items-order.input";
 
 @Resolver(() => ItemsOrder)
@@ -22,8 +22,8 @@ export class ItemsOrderResolver {
   ) {
     return this.itemsOrderService.updateItemAmount(item_id, order_id, amount);
   }
-  @Query(() => Items)
-  async getItemByIdFromItems(@Args("id") id: number): Promise<Items> {
+  @Query(() => Item)
+  async getItemByIdFromItems(@Args("id") id: number): Promise<Item> {
     return this.itemsOrderService.getItemByIdFromItems(id);
   }
   @Query(() => [ItemsOrder])
@@ -37,7 +37,7 @@ export class ItemsOrderResolver {
     return this.itemsOrderService.createrItemOrder(createItemsOrderInput);
   }
 
-  @ResolveField("item", () => Items)
+  @ResolveField("item", () => Item)
   async item(@Parent() itemsOrder: ItemsOrder) {
     return (
       await this.itemsOrderService.getItemByIdFromItems(itemsOrder.item_id)

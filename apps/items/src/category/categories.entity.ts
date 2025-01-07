@@ -2,7 +2,7 @@ import { Directive, Field, Int, ObjectType } from "@nestjs/graphql";
 import { IsInt } from "class-validator";
 import { Column, Entity, PrimaryColumn } from "typeorm";
 
-@Entity()
+@Entity({ name: "category" })
 @ObjectType()
 @Directive("@shareable")
 export class Category {

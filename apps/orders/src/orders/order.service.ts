@@ -1,13 +1,13 @@
 import { Injectable, NotFoundException } from "@nestjs/common";
-import { Orders } from "./order.entity";
+import { Order } from "./order.entity";
 import { InjectRepository } from "@nestjs/typeorm";
 import { Repository } from "typeorm";
 
 @Injectable()
 export class OrderService {
   constructor(
-    @InjectRepository(Orders)
-    private orderRepository: Repository<Orders>
+    @InjectRepository(Order)
+    private orderRepository: Repository<Order>
   ) {}
 
   async deleteOrder(id: number) {

@@ -3,10 +3,9 @@ import { Column, Entity, OneToMany, PrimaryColumn } from "typeorm";
 import { ItemsOrder } from "../items_order/ItemOrder.entity";
 
 @ObjectType()
-@Entity()
-@Directive('@key(fields: "id")')
+@Entity({ name: "orders" })
 @Directive("@shareable")
-export class Orders {
+export class Order {
   @Field(() => ID)
   @PrimaryColumn()
   id: number;
@@ -14,6 +13,7 @@ export class Orders {
   @Field(() => Date)
   @Column()
   order_date: Date;
+
   @OneToMany(() => ItemsOrder, (ItemOrder) => ItemOrder.order)
   @Field(() => [ItemsOrder])
   itemsOrder: ItemsOrder[];

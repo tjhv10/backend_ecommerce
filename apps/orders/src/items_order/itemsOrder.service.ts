@@ -4,7 +4,6 @@ import { Repository } from "typeorm";
 import { ItemsOrder } from "./ItemOrder.entity";
 import { CreateItemsOrderInput } from "./dto/create-Items-order.input";
 import { OrderService } from "../orders/order.service";
-import { Items } from "apps/items/src/item/items.entity";
 import { HttpUtilService } from "packages/httpUtil/httpUtil.service";
 
 @Injectable()

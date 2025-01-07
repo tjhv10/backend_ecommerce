@@ -1,12 +1,12 @@
 import { HttpService } from "@nestjs/axios";
 import { Injectable } from "@nestjs/common";
-import { Items } from "apps/items/src/item/items.entity";
+import { Item } from "apps/items/src/item/item.entity";
 import { firstValueFrom } from "rxjs";
 
 @Injectable()
 export class HttpUtilService {
   constructor(private readonly httpService: HttpService) {}
-  async getItemByIdFromItems(item_id: number): Promise<Items> {
+  async getItemByIdFromItems(item_id: number): Promise<Item> {
     const query = `
       query {
         getItemById(id: ${item_id}) {

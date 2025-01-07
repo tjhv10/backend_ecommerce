@@ -1,13 +1,13 @@
-import { Entity, Column, PrimaryColumn, ManyToMany, JoinTable } from "typeorm";
+import { Entity, Column, PrimaryColumn } from "typeorm";
 import { Directive, Field, Int, ObjectType } from "@nestjs/graphql";
 import { ItemStatus } from "../../../../packages/enum/items-status.enum";
 import { IsInt } from "class-validator";
 import { Category } from "../category/categories.entity";
 
 @ObjectType()
-@Entity()
+@Entity({ name: "items" })
 @Directive("@shareable")
-export class Items {
+export class Item {
   @IsInt()
   @PrimaryColumn()
   @Field(() => Int)

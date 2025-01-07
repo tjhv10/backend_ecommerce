@@ -7,22 +7,22 @@ import {
   Parent,
   Context,
 } from "@nestjs/graphql";
-import { ItemService } from "./items.service";
-import { Items } from "./items.entity";
+import { ItemService } from "./item.service";
+import { Item } from "./item.entity";
 import { IDataloaders } from "../dataloader/dataloader.interface";
 import { ItemStatus } from "packages/enum/items-status.enum";
 import { Category } from "../category/categories.entity";
 
-@Resolver(() => Items)
+@Resolver(() => Item)
 export class ItemResolver {
   constructor(private itemService: ItemService) {}
 
-  @Query(() => Items)
-  async getItemById(@Args("id") id: number): Promise<Items> {
+  @Query(() => Item)
+  async getItemById(@Args("id") id: number): Promise<Item> {
     return this.itemService.getItemById(id);
   }
 
-  @Query(() => [Items])
+  @Query(() => [Item])
   getItems() {
     return this.itemService.getItems();
   }
@@ -32,24 +32,24 @@ export class ItemResolver {
     return this.itemService.isIdExist(id);
   }
 
-  @Mutation(() => Items)
+  @Mutation(() => Item)
   deleteItem(@Args("id") id: number) {
     return this.itemService.deleteItem(id);
   }
 
-  @Mutation(() => Items)
+  @Mutation(() => Item)
   updateItemPrice(@Args("id") id: number, @Args("price") price: number) {
     return this.itemService.updateItemPrice(id, price);
   }
 
-  @Mutation(() => Items)
+  @Mutation(() => Item)
   updateItemStatus(@Args("id") id: number, @Args("status") status: ItemStatus) {
     return this.itemService.updateItemStatus(id, status);
   }
 
   @ResolveField("categories", () => [Category])
   async getCategories(
-    @Parent() item: Items,
+    @Parent() item: Item,
     @Context() { loaders }: { loaders: IDataloaders }
   ) {
     return loaders.itemCategoryLoader.load(item.id);

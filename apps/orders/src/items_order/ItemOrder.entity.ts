@@ -1,18 +1,16 @@
 import { Directive, Field, Int, ObjectType } from "@nestjs/graphql";
 import { Column, Entity, ManyToOne, PrimaryColumn } from "typeorm";
 import { IsInt } from "class-validator";
-import { Items } from "apps/items/src/item/items.entity";
-import { Orders } from "../orders/order.entity";
+import { Item } from "apps/items/src/item/item.entity";
+import { Order } from "../orders/order.entity";
 
 @ObjectType()
-@Entity()
-@Directive('@key(fields: "id")')
+@Entity({ name: "items_order" })
 @Directive("@shareable")
 export class ItemsOrder {
   @IsInt()
   @PrimaryColumn()
   @Field(() => Int)
-  @PrimaryColumn()
   id: number;
 
   @IsInt()
@@ -30,11 +28,12 @@ export class ItemsOrder {
   @Column()
   amount: number;
 
-  @Field(() => Items)
-  item: Items;
+  @Field(() => Item)
+  item: Item;
 
-  @ManyToOne(() => Orders, (order: Orders) => order.id, {
+  @ManyToOne(() => Order, (order: Order) => order.itemsOrder, {
     onDelete: "CASCADE",
   })
-  order: Orders;
+  @Field(() => Order)
+  order: Order;
 }

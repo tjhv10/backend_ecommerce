@@ -1,15 +1,15 @@
 import { Module } from "@nestjs/common";
 import { TypeOrmModule } from "@nestjs/typeorm";
-import { Items } from "./items.entity";
-import { ItemService } from "./items.service";
+import { Item } from "./item.entity";
+import { ItemService } from "./item.service";
 import { ItemCategoriesModule } from "../Item_Category/ItemCategory.module";
 import { DataloaderModule } from "../dataloader/dataloader.module";
-import { ItemResolver } from "./items.resolver";
+import { ItemResolver } from "./item.resolver";
 
 @Module({
   imports: [
     DataloaderModule,
-    TypeOrmModule.forFeature([Items]),
+    TypeOrmModule.forFeature([Item]),
     ItemCategoriesModule,
   ],
   providers: [ItemService, ItemResolver],

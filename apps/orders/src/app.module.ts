@@ -9,7 +9,7 @@ import { ConfigModule } from "@nestjs/config";
 import { OrderModule } from "./orders/order.module";
 import { ItemsOrderModule } from "./items_order/itemsOrder.module";
 import { ItemsOrder } from "./items_order/ItemOrder.entity";
-import { Orders } from "./orders/order.entity";
+import { Order } from "./orders/order.entity";
 import { DataloaderModule } from "../dataloader/dataloader.module";
 import { DataloaderService } from "../dataloader/dataloader.service";
 
@@ -25,7 +25,7 @@ import { DataloaderService } from "../dataloader/dataloader.service";
       password: process.env.PASSWORD,
       database: process.env.DATABASE,
       autoLoadEntities: true,
-      entities: [ItemsOrder, Orders],
+      entities: [ItemsOrder, Order],
     }),
     GraphQLModule.forRootAsync<ApolloFederationDriverConfig>({
       driver: ApolloFederationDriver,

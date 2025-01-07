@@ -8,15 +8,15 @@ import {
   Context,
 } from "@nestjs/graphql";
 import { OrderService } from "./order.service";
-import { Orders as Orders } from "./order.entity";
+import { Order as Order } from "./order.entity";
 import { ItemsOrder } from "../items_order/ItemOrder.entity";
 import { IDataloaders } from "apps/orders/dataloader/dataloader.interface";
 
-@Resolver(() => Orders)
+@Resolver(() => Order)
 export class OrderResolver {
   constructor(private orderService: OrderService) {}
 
-  @Query(() => [Orders])
+  @Query(() => [Order])
   async getOrdersWithProducts() {
     return this.orderService.getOrdersWithProducts();
   }
@@ -28,7 +28,7 @@ export class OrderResolver {
 
   @ResolveField("itemsOrder", () => [ItemsOrder])
   async getItems(
-    @Parent() order: Orders,
+    @Parent() order: Order,
     @Context() { loaders }: { loaders: IDataloaders }
   ) {
     return loaders.itemsOrderLoader.load(order.id);

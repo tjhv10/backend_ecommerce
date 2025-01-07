@@ -1,6 +1,6 @@
 import { Injectable, NotFoundException } from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
-import { Items } from "./items.entity";
+import { Item } from "./item.entity";
 import { Repository } from "typeorm";
 import { ItemStatus } from "../../../../packages/enum/items-status.enum";
 import {
@@ -12,15 +12,15 @@ import {
 @Injectable()
 export class ItemService {
   constructor(
-    @InjectRepository(Items)
-    private itemRepository: Repository<Items>
+    @InjectRepository(Item)
+    private itemRepository: Repository<Item>
   ) {}
-  async getItems(): Promise<Items[]> {
+  async getItems(): Promise<Item[]> {
     return await this.itemRepository.find({
       where: { status: ItemStatus.ACTIVE },
     });
   }
-  async getItemById(id: number): Promise<Items> {
+  async getItemById(id: number): Promise<Item> {
     const found = await this.itemRepository.findOne({ where: { id } });
     if (!found) {
       throw new NotFoundException(
@@ -47,23 +47,23 @@ export class ItemService {
     return item;
   }
 
-  async updateItemStatus(id: number, status: ItemStatus): Promise<Items> {
+  async updateItemStatus(id: number, status: ItemStatus): Promise<Item> {
     const item = await this.getItemById(id);
     item.status = status;
     return this.itemRepository.save(item);
   }
 
-  async updateItemPrice(id: number, price: number): Promise<Items> {
+  async updateItemPrice(id: number, price: number): Promise<Item> {
     const item = await this.getItemById(id);
     item.price = price;
     return this.itemRepository.save(item);
   }
 
   async filterItems(
-    items: Items[],
+    items: Item[],
     category: CategoryEnum,
     subcategory: DateEnum | number[] | subcategoryEnum
-  ): Promise<Items[]> {
+  ): Promise<Item[]> {
     switch (category) {
       case CategoryEnum.Price: {
         return items.map((item) => {
