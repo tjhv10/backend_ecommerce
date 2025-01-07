@@ -9,6 +9,7 @@ export class OrderService {
     @InjectRepository(Orders)
     private orderRepository: Repository<Orders>
   ) {}
+
   async deleteOrder(id: number) {
     const result = await this.orderRepository.delete(id);
     if (result.affected === 0) {
@@ -20,6 +21,7 @@ export class OrderService {
   async getordersById(id: number) {
     return this.orderRepository.findOne({ where: { id: id } });
   }
+
   async createOrder(id: number, orderDate: Date) {
     if ((await this.getordersById(id)) !== null) {
       return;
@@ -28,11 +30,10 @@ export class OrderService {
       id: id,
       order_date: orderDate,
     });
-
     return this.orderRepository.save(order);
   }
+
   async getOrdersWithProducts() {
-    console.log("hi");
     return this.orderRepository.find();
   }
 }

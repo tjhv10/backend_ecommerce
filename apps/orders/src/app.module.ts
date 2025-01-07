@@ -10,8 +10,6 @@ import { OrderModule } from "./orders/order.module";
 import { ItemsOrderModule } from "./items_order/itemsOrder.module";
 import { ItemsOrder } from "./items_order/ItemOrder.entity";
 import { Orders } from "./orders/order.entity";
-import { Items } from "apps/items/src/item/items.entity";
-import { ItemModule } from "apps/items/src/item/items.module";
 import { DataloaderModule } from "../dataloader/dataloader.module";
 import { DataloaderService } from "../dataloader/dataloader.service";
 
@@ -20,16 +18,12 @@ import { DataloaderService } from "../dataloader/dataloader.service";
     ConfigModule.forRoot({ envFilePath: ".env" }),
     TypeOrmModule.forRoot({
       type: "postgres",
-      // host: process.env.HOST,
-      // port: parseInt(process.env.PORT),
-      // username: process.env.USERNAME,
-      // password: process.env.PASSWORD,
-      // database: process.env.DATABASE,
-      host: "localhost",
-      port: 5432,
+      host: process.env.HOST,
+      port: parseInt(process.env.PORT),
       username: "postgres",
-      password: "02082003",
-      database: "Items",
+      // username: process.env.USERNAME,
+      password: process.env.PASSWORD,
+      database: process.env.DATABASE,
       autoLoadEntities: true,
       entities: [ItemsOrder, Orders],
     }),

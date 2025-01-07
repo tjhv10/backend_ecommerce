@@ -9,9 +9,11 @@ export class CategoryService {
     @InjectRepository(Category)
     private categoriesRepository: Repository<Category>
   ) {}
+
   async getCategories(): Promise<Category[]> {
     return this.categoriesRepository.find();
   }
+
   async getCategoryById(id: number): Promise<Category> {
     const found = this.categoriesRepository.findOne({
       where: { id: id },

@@ -1,5 +1,5 @@
 import { Directive, Field, ID, ObjectType } from "@nestjs/graphql";
-import { Column, Entity, PrimaryColumn } from "typeorm";
+import { Column, Entity, OneToMany, PrimaryColumn } from "typeorm";
 import { ItemsOrder } from "../items_order/ItemOrder.entity";
 
 @ObjectType()
@@ -15,6 +15,6 @@ export class Orders {
   @Column()
   order_date: Date;
 
-  @Field(() => [ItemsOrder])
+  @OneToMany(() => ItemsOrder, (itemsOrder) => itemsOrder.order_id)
   itemsOrder: ItemsOrder[];
 }

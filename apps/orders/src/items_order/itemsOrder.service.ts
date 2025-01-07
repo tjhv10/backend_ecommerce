@@ -3,19 +3,19 @@ import { InjectRepository } from "@nestjs/typeorm";
 import { Repository } from "typeorm";
 import { ItemsOrder } from "./ItemOrder.entity";
 import { CreateItemsOrderInput } from "./dto/create-Items-order.input";
-import { HttpService } from "@nestjs/axios";
-import { firstValueFrom } from "rxjs";
 import { OrderService } from "../orders/order.service";
 import { Items } from "apps/items/src/item/items.entity";
+import { HttpUtilService } from "packages/httpUtil/httpUtil.service";
 
 @Injectable()
 export class ItemsOrderService {
   constructor(
     @InjectRepository(ItemsOrder)
     private ItemsOrderRepository: Repository<ItemsOrder>,
-    private readonly httpService: HttpService,
-    private readonly orderService: OrderService
+    private readonly orderService: OrderService,
+    private readonly httpUtilService: HttpUtilService
   ) {}
+
   async updateItemAmount(
     order_id: number,
     item_id: number,
@@ -28,29 +28,8 @@ export class ItemsOrderService {
     return this.ItemsOrderRepository.save(item);
   }
 
-  async getItemByIdFromItems(item_id: number): Promise<Items> {
-    const query = `
-      query {
-        getItemById(id: ${item_id}) {
-          id
-          name
-          price
-          upload_date
-          description
-          seller_name
-          categories {
-            id
-            name
-          }
-        }
-      }
-    `;
-    const response = await firstValueFrom(
-      this.httpService.post("http://localhost:3000/graphql", { query })
-    );
-    console.log(response.data.data.getItemById);
-
-    return response.data.data.getItemById;
+  async getItemByIdFromItems(item_id: number): Promise<any> {
+    return this.httpUtilService.getItemByIdFromItems(item_id);
   }
 
   async createrItemOrder(
@@ -69,9 +48,8 @@ export class ItemsOrderService {
       throw new NotFoundException("itemsOrderId already exists");
     }
     if (
-      this.getItemByIdFromItems(createItemsOrderInput.item_id) === undefined
+      (await this.getItemByIdFromItems(createItemsOrderInput.item_id)) === null
     ) {
-      //TODO check if works
       throw new NotFoundException("itemId does not exist");
     }
 

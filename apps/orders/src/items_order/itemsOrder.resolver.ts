@@ -39,8 +39,8 @@ export class ItemsOrderResolver {
 
   @ResolveField("item", () => Items)
   async item(@Parent() itemsOrder: ItemsOrder) {
-    return await this.itemsOrderService.getItemByIdFromItems(
-      itemsOrder.item_id
-    );
+    return (
+      await this.itemsOrderService.getItemByIdFromItems(itemsOrder.item_id)
+    ).getItemById;
   }
 }
