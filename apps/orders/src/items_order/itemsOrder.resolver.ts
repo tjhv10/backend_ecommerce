@@ -22,6 +22,10 @@ export class ItemsOrderResolver {
   ) {
     return this.itemsOrderService.updateItemAmount(item_id, order_id, amount);
   }
+  @Query(() => Items)
+  async getItemById(@Args("id") id: number): Promise<Items> {
+    return this.itemsOrderService.getItemById(id);
+  }
   @Query(() => [ItemsOrder])
   async getItemsOrder() {
     return this.itemsOrderService.getItemsOrder();

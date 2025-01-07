@@ -66,9 +66,9 @@ export class ItemsOrderService {
     ) {
       throw new NotFoundException("itemsOrderId already exists");
     }
-    if (this.getItemById(createItemsOrderInput.item_id) === null) {
+    if (this.getItemById(createItemsOrderInput.item_id) === undefined) {
       //TODO check if works
-      throw new NotFoundException("item_id does not exist");
+      throw new NotFoundException("itemId does not exist");
     }
 
     const newItems_Order = this.ItemsOrderRepository.create(
