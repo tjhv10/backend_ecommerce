@@ -1,8 +1,8 @@
 import { Directive, Field, Int, ObjectType } from "@nestjs/graphql";
 import { Column, Entity, ManyToOne, PrimaryColumn } from "typeorm";
 import { IsInt } from "class-validator";
-import { Item } from "apps/items/src/item/item.entity";
-import { Order } from "../orders/order.entity";
+import { Item } from "apps/item/src/item/item.entity";
+import { Order } from "../order/order.entity";
 
 @ObjectType()
 @Entity({ name: "items_order" })
@@ -21,7 +21,7 @@ export class ItemsOrder {
   @IsInt()
   @Field(() => Int)
   @Column()
-  order_id: number;
+  orderId: number;
 
   @IsInt()
   @Field(() => Int)

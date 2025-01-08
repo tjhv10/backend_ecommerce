@@ -6,10 +6,10 @@ import {
   ApolloFederationDriverConfig,
 } from "@nestjs/apollo";
 import { ConfigModule } from "@nestjs/config";
-import { OrderModule } from "./orders/order.module";
+import { OrderModule } from "./order/order.module";
 import { ItemsOrderModule } from "./items_order/itemsOrder.module";
 import { ItemsOrder } from "./items_order/ItemOrder.entity";
-import { Order } from "./orders/order.entity";
+import { Order } from "./order/order.entity";
 import { DataloaderModule } from "../dataloader/dataloader.module";
 import { DataloaderService } from "../dataloader/dataloader.service";
 

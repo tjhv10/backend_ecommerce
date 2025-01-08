@@ -8,7 +8,7 @@ import {
 } from "@nestjs/graphql";
 import { ItemsOrderService } from "./itemsOrder.service";
 import { ItemsOrder } from "./ItemOrder.entity";
-import { Item } from "apps/items/src/item/item.entity";
+import { Item } from "apps/item/src/item/item.entity";
 import { CreateItemsOrderInput } from "./dto/create-Items-order.input";
 
 @Resolver(() => ItemsOrder)

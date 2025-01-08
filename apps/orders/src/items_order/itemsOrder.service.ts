@@ -3,7 +3,7 @@ import { InjectRepository } from "@nestjs/typeorm";
 import { Repository } from "typeorm";
 import { ItemsOrder } from "./ItemOrder.entity";
 import { CreateItemsOrderInput } from "./dto/create-Items-order.input";
-import { OrderService } from "../orders/order.service";
+import { OrderService } from "../order/order.service";
 import { HttpUtilService } from "packages/httpUtil/httpUtil.service";
 
 @Injectable()
@@ -21,7 +21,7 @@ export class ItemsOrderService {
     amount: number
   ): Promise<ItemsOrder> {
     const item = await this.ItemsOrderRepository.findOne({
-      where: { order_id: order_id, item_id: item_id },
+      where: { orderId: order_id, item_id: item_id },
     });
     item.amount = amount;
     return this.ItemsOrderRepository.save(item);
@@ -63,7 +63,7 @@ export class ItemsOrderService {
   }
   async getItemsOrdersByOrderId(id: number): Promise<ItemsOrder[]> {
     const found = await this.ItemsOrderRepository.find({
-      where: { order_id: id },
+      where: { orderId: id },
     });
     if (!found || found.length === 0) {
       throw new NotFoundException(`order with id "${id}" dosent have items`);

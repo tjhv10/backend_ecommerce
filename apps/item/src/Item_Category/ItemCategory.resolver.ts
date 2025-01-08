@@ -1,6 +1,6 @@
-import { Resolver, Query, Args } from '@nestjs/graphql';
-import { ItemsCategories } from './ItemCategory.entity';
-import { ItemsCategoriesService } from '../Item_Category/ItemCategory.service';
+import { Resolver, Query, Args } from "@nestjs/graphql";
+import { ItemsCategories } from "./ItemCategory.entity";
+import { ItemsCategoriesService } from "./ItemCategory.service";
 
 @Resolver(() => ItemsCategories)
 export class ItemCategoriesResolver {
@@ -13,7 +13,7 @@ export class ItemCategoriesResolver {
 
   @Query(() => [ItemsCategories])
   async getItemsCategoriesById(
-    @Args('id') id: number,
+    @Args("id") id: number
   ): Promise<ItemsCategories[]> {
     return this.itemsCategoriesService.getItemsCategoriesByItemId(id);
   }
