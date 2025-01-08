@@ -17,14 +17,14 @@ import { DataloaderService } from "../dataloader/dataloader.service";
   imports: [
     ConfigModule.forRoot({ envFilePath: ".env" }),
     TypeOrmModule.forRoot({
-      type: "postgres",
-      host: process.env.HOST,
-      port: parseInt(process.env.PORT),
-      username: "postgres",
-      // username: process.env.USERNAME,
-      password: process.env.PASSWORD,
+      type: process.env.DB_TYPE as "postgres",
+      host: process.env.DB_HOST,
+      port: +process.env.PORT,
+      username: process.env.DB_USERNAME,
+      password: process.env.DB_PASSWORD,
       database: process.env.DATABASE,
       autoLoadEntities: true,
+      synchronize: true,
       entities: [ItemsOrder, Order],
     }),
     GraphQLModule.forRootAsync<ApolloFederationDriverConfig>({

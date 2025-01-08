@@ -1,5 +1,5 @@
 import { Directive, Field, Int, ObjectType } from "@nestjs/graphql";
-import { Item } from "../item/item.entity";
+import { Item } from "../items/item.entity";
 import { Column, Entity, ManyToOne, PrimaryColumn } from "typeorm";
 import { IsInt } from "class-validator";
 import { Category } from "../category/categories.entity";

@@ -1,6 +1,6 @@
 import { HttpService } from "@nestjs/axios";
 import { Injectable } from "@nestjs/common";
-import { Item } from "apps/item/src/item/item.entity";
+import { Item } from "apps/items/src/items/item.entity";
 import { firstValueFrom } from "rxjs";
 
 @Injectable()
@@ -26,7 +26,7 @@ export class HttpUtilService {
 
     return (
       await firstValueFrom(
-        this.httpService.post(process.env.ITEMSURL, { query })
+        this.httpService.post(process.env.ITEMS_URL, { query })
       )
     ).data.data;
   }

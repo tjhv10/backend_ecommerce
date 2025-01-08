@@ -2,7 +2,7 @@ import { Module } from "@nestjs/common";
 import { TypeOrmModule } from "@nestjs/typeorm";
 import { ItemsCategories } from "./ItemCategory.entity";
 import { ItemsCategoriesService } from "./ItemCategory.service";
-import { Item } from "../item/item.entity";
+import { Item } from "../items/item.entity";
 import { CatergoyModule } from "../category/categories.module";
 import { ItemCategoriesResolver } from "./ItemCategory.resolver";
 

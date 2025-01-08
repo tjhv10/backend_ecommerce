@@ -1,7 +1,7 @@
 import { Module } from "@nestjs/common";
 import { TypeOrmModule } from "@nestjs/typeorm";
 import { GraphQLModule } from "@nestjs/graphql";
-import { ItemModule } from "./item/item.module";
+import { ItemModule } from "./items/item.module";
 import {
   ApolloFederationDriver,
   ApolloFederationDriverConfig,
@@ -9,7 +9,7 @@ import {
 import { CatergoyModule } from "./category/categories.module";
 import { ItemCategoriesModule } from "./Item_Category/ItemCategory.module";
 import { ConfigModule } from "@nestjs/config";
-import { Item } from "./item/item.entity";
+import { Item } from "./items/item.entity";
 import { Category } from "./category/categories.entity";
 import { ItemsCategories } from "./Item_Category/ItemCategory.entity";
 import { DataloaderModule } from "./dataloader/dataloader.module";
@@ -19,14 +19,14 @@ import { DataloaderService } from "./dataloader/dataloader.service";
   imports: [
     ConfigModule.forRoot({ envFilePath: ".env" }),
     TypeOrmModule.forRoot({
-      type: "postgres",
-      host: process.env.HOST,
+      type: process.env.DB_TYPE as "postgres",
+      host: process.env.DB_HOST,
       port: parseInt(process.env.PORT),
-      username: "postgres",
-      // username: process.env.USERNAME,
-      password: process.env.PASSWORD,
+      username: process.env.DB_USERNAME,
+      password: process.env.DB_PASSWORD,
       database: process.env.DATABASE,
       autoLoadEntities: true,
+      synchronize: true,
       entities: [Item, Category, ItemsCategories],
     }),
     GraphQLModule.forRootAsync<ApolloFederationDriverConfig>({

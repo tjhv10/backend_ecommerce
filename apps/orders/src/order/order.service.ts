@@ -10,7 +10,7 @@ export class OrderService {
     private orderRepository: Repository<Order>
   ) {}
 
-  async deleteOrder(id: number) {
+  async deleteOrder(id: number): Promise<boolean> {
     const result = await this.orderRepository.delete(id);
     if (result.affected === 0) {
       throw new NotFoundException(`Item with ID "${id}" not found`);
@@ -18,16 +18,16 @@ export class OrderService {
     return true;
   }
 
-  async getordersById(id: number) {
-    return this.orderRepository.findOne({ where: { id: id } });
+  async getOrdersById(id: number) {
+    return this.orderRepository.findOne({ where: { id } });
   }
 
+  // TOOD: don't pass id to create order
   async createOrder(id: number, orderDate: Date) {
-    if ((await this.getordersById(id)) !== null) {
+    if ((await this.getOrdersById(id)) !== null) {
       return;
     }
     const order = this.orderRepository.create({
-      id: id,
       order_date: orderDate,
     });
     return this.orderRepository.save(order);

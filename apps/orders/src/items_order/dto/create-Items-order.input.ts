@@ -10,6 +10,7 @@ export class CreateItemsOrderInput {
 
   @PrimaryColumn()
   @Field(() => Int)
+  // change name
   item_id: number;
 
   @PrimaryColumn()

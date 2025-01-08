@@ -18,7 +18,7 @@ export class Item {
   name: string;
 
   @Field(() => Date)
-  @Column()
+  @Column({ nullable: true })
   upload_date: Date;
 
   @Field(() => String)

@@ -16,12 +16,12 @@ export class ItemsOrderService {
   ) {}
 
   async updateItemAmount(
-    order_id: number,
-    item_id: number,
+    orderId: number,
+    itemId: number,
     amount: number
   ): Promise<ItemsOrder> {
     const item = await this.ItemsOrderRepository.findOne({
-      where: { orderId: order_id, item_id: item_id },
+      where: { orderId, itemId: itemId },
     });
     item.amount = amount;
     return this.ItemsOrderRepository.save(item);
@@ -37,6 +37,7 @@ export class ItemsOrderService {
     if (createItemsOrderInput.amount <= 0) {
       throw new NotFoundException("amount must be greater than 0");
     }
+
     if (
       (
         await this.ItemsOrderRepository.find({
@@ -58,9 +59,11 @@ export class ItemsOrderService {
     this.orderService.createOrder(createItemsOrderInput.order_id, new Date());
     return this.ItemsOrderRepository.save(newItems_Order);
   }
+
   async getItemsOrder(): Promise<ItemsOrder[]> {
     return this.ItemsOrderRepository.find();
   }
+
   async getItemsOrdersByOrderId(id: number): Promise<ItemsOrder[]> {
     const found = await this.ItemsOrderRepository.find({
       where: { orderId: id },
@@ -71,7 +74,8 @@ export class ItemsOrderService {
 
     return found;
   }
-  public async getItemsOfOrderByBatch(
+
+  async getItemsOfOrderByBatch(
     orderIds: readonly number[]
   ): Promise<ItemsOrder[][]> {
     return Promise.all(orderIds.map((id) => this.getItemsOrdersByOrderId(id)));

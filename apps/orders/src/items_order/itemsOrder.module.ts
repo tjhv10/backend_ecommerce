@@ -2,7 +2,7 @@ import { Module } from "@nestjs/common";
 import { ItemsOrderService } from "./itemsOrder.service";
 import { TypeOrmModule } from "@nestjs/typeorm";
 import { ItemsOrder } from "./ItemOrder.entity";
-import { Item } from "apps/item/src/item/item.entity";
+import { Item } from "apps/items/src/items/item.entity";
 import { Order } from "../order/order.entity";
 import { OrderModule } from "../order/order.module";
 import { ItemsOrderResolver } from "./itemsOrder.resolver";

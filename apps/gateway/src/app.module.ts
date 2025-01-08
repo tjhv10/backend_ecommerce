@@ -14,11 +14,11 @@ import { ConfigModule } from "@nestjs/config";
           subgraphs: [
             {
               name: "items",
-              url: process.env.ITEMSURL,
+              url: process.env.ITEMS_URL,
             },
             {
               name: "orders",
-              url: process.env.ORDERSURL,
+              url: process.env.ORDERS_URL,
             },
           ],
         }),
