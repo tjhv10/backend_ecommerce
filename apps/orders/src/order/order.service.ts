@@ -22,7 +22,6 @@ export class OrderService {
     return this.orderRepository.findOne({ where: { id } });
   }
 
-  // TOOD: don't pass id to create order
   async createOrder(id: number, orderDate: Date) {
     if ((await this.getOrdersById(id)) !== null) {
       return;

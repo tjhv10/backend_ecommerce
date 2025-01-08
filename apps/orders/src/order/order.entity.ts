@@ -1,5 +1,5 @@
 import { Directive, Field, ID, Int, ObjectType } from "@nestjs/graphql";
-import { Column, Entity, OneToMany, PrimaryColumn } from "typeorm";
+import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from "typeorm";
 import { ItemsOrder } from "../items_order/ItemOrder.entity";
 
 @ObjectType()
@@ -7,7 +7,7 @@ import { ItemsOrder } from "../items_order/ItemOrder.entity";
 @Directive("@shareable")
 export class Order {
   @Field(() => Int)
-  @PrimaryColumn()
+  @PrimaryGeneratedColumn()
   id: number;
 
   @Field(() => Date)

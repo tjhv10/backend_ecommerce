@@ -6,16 +6,17 @@ import { firstValueFrom } from "rxjs";
 @Injectable()
 export class HttpUtilService {
   constructor(private readonly httpService: HttpService) {}
-  async getItemByIdFromItems(item_id: number): Promise<Item> {
+  async getItemByIdFromItems(itemId: number): Promise<Item> {
     const query = `
       query {
-        getItemById(id: ${item_id}) {
+        getItemById(id: ${itemId}) {
           id
           name
           price
-          upload_date
+          uploadDate
           description
-          seller_name
+          sellerName
+          status
           categories {
             id
             name
@@ -23,6 +24,7 @@ export class HttpUtilService {
         }
       }
     `;
+
     return (
       await firstValueFrom(
         this.httpService.post(process.env.ITEMS_URL, { query })

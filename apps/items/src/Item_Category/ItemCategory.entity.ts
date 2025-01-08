@@ -14,10 +14,12 @@ export class ItemsCategories {
   @Field(() => Category)
   category: Category;
 
-  @PrimaryColumn({ name: "item_id" })
+  @PrimaryColumn({ name: "itemId" })
+  @Field(() => Int)
   itemId: number;
 
-  @PrimaryColumn({ name: "category_id" })
+  @PrimaryColumn({ name: "categoryId" })
+  @Field(() => Int)
   categoryId: number;
 
   @ManyToOne(() => Item, (item: Item) => item.id, { onDelete: "CASCADE" })

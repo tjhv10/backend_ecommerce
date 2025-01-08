@@ -1,5 +1,11 @@
 import { Directive, Field, Int, ObjectType } from "@nestjs/graphql";
-import { Column, Entity, ManyToOne, PrimaryColumn } from "typeorm";
+import {
+  Column,
+  Entity,
+  ManyToOne,
+  PrimaryColumn,
+  PrimaryGeneratedColumn,
+} from "typeorm";
 import { IsInt } from "class-validator";
 import { Item } from "apps/items/src/items/item.entity";
 import { Order } from "../order/order.entity";
@@ -9,18 +15,18 @@ import { Order } from "../order/order.entity";
 @Directive("@shareable")
 export class ItemsOrder {
   @IsInt()
-  @PrimaryColumn()
+  @PrimaryGeneratedColumn()
   @Field(() => Int)
   id: number;
 
   @IsInt()
   @Field(() => Int)
-  @Column({ name: "item_id" })
+  @Column({ name: "itemId" })
   itemId: number;
 
   @IsInt()
   @Field(() => Int)
-  @Column({ name: "order_id" })
+  @Column({ name: "orderId" })
   orderId: number;
 
   @IsInt()

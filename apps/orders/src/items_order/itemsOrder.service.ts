@@ -21,14 +21,14 @@ export class ItemsOrderService {
     amount: number
   ): Promise<ItemsOrder> {
     const item = await this.ItemsOrderRepository.findOne({
-      where: { orderId, itemId: itemId },
+      where: { orderId: orderId, itemId },
     });
     item.amount = amount;
     return this.ItemsOrderRepository.save(item);
   }
 
-  async getItemByIdFromItems(item_id: number): Promise<any> {
-    return this.httpUtilService.getItemByIdFromItems(item_id);
+  async getItemByIdFromItems(itemId: number): Promise<any> {
+    return this.httpUtilService.getItemByIdFromItems(itemId);
   }
 
   async createrItemOrder(
@@ -37,26 +37,27 @@ export class ItemsOrderService {
     if (createItemsOrderInput.amount <= 0) {
       throw new NotFoundException("amount must be greater than 0");
     }
-
+    // if (
+    //   (
+    //     await this.ItemsOrderRepository.find({
+    //       where: { id: createItemsOrderInput.id },
+    //     })
+    //   ).length > 0
+    // ) {
+    //   throw new NotFoundException("itemsOrderId already exists");
+    // }
     if (
-      (
-        await this.ItemsOrderRepository.find({
-          where: { id: createItemsOrderInput.id },
-        })
-      ).length > 0
-    ) {
-      throw new NotFoundException("itemsOrderId already exists");
-    }
-    if (
-      (await this.getItemByIdFromItems(createItemsOrderInput.item_id)) === null
+      (await this.getItemByIdFromItems(createItemsOrderInput.itemId)) === null
     ) {
       throw new NotFoundException("itemId does not exist");
     }
-
+    await this.orderService.createOrder(
+      createItemsOrderInput.orderId,
+      new Date()
+    );
     const newItems_Order = this.ItemsOrderRepository.create(
       createItemsOrderInput
     );
-    this.orderService.createOrder(createItemsOrderInput.order_id, new Date());
     return this.ItemsOrderRepository.save(newItems_Order);
   }
 
