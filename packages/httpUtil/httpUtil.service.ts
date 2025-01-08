@@ -23,7 +23,6 @@ export class HttpUtilService {
         }
       }
     `;
-
     return (
       await firstValueFrom(
         this.httpService.post(process.env.ITEMS_URL, { query })

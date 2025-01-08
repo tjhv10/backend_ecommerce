@@ -11,8 +11,8 @@ export class Order {
   id: number;
 
   @Field(() => Date)
-  @Column({ nullable: true })
-  order_date: Date;
+  @Column({ nullable: true, name: "order_date" })
+  orderDate: Date;
 
   @OneToMany(() => ItemsOrder, (ItemOrder) => ItemOrder.order, {
     onDelete: "CASCADE",

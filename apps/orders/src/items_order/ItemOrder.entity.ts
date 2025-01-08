@@ -20,7 +20,7 @@ export class ItemsOrder {
 
   @IsInt()
   @Field(() => Int)
-  @Column()
+  @Column({ name: "order_id" })
   orderId: number;
 
   @IsInt()

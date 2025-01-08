@@ -76,7 +76,7 @@ export class ItemService {
       }
       case CategoryEnum["Uploaded date"]: {
         return items.map((item) => {
-          if (item.upload_date.toString() <= subcategory) return item;
+          if (item.uploadDate.toString() <= subcategory) return item;
         });
       }
       case CategoryEnum.Category: {

@@ -18,8 +18,8 @@ export class Item {
   name: string;
 
   @Field(() => Date)
-  @Column({ nullable: true })
-  upload_date: Date;
+  @Column({ nullable: true, name: "upload_date" })
+  uploadDate: Date;
 
   @Field(() => String)
   @Column()
@@ -30,16 +30,16 @@ export class Item {
   price: number;
 
   @Field(() => String)
-  @Column()
-  seller_name: string;
-
-  @Field(() => String)
-  @Column()
-  image_url: string;
+  @Column({ name: "seller_name" })
+  sellerName: string;
 
   @Field()
   @Column()
   status: ItemStatus;
+
+  @Field(() => String)
+  @Column({ name: "image_url" })
+  imageUrl: string;
 
   @Field(() => [Category])
   categories: Category[];
