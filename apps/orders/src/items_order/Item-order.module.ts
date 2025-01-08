@@ -1,11 +1,11 @@
 import { Module } from "@nestjs/common";
-import { ItemsOrderService } from "./itemsOrder.service";
+import { ItemsOrderService } from "./Item-order.service";
 import { TypeOrmModule } from "@nestjs/typeorm";
-import { ItemsOrder } from "./ItemOrder.entity";
+import { ItemsOrder } from "./Item-order.entity";
 import { Item } from "apps/items/src/items/item.entity";
 import { Order } from "../order/order.entity";
 import { OrderModule } from "../order/order.module";
-import { ItemsOrderResolver } from "./itemsOrder.resolver";
+import { ItemsOrderResolver } from "./Item-order.resolver";
 import { HttpUtilModule } from "packages/httpUtil/httpUtil.module";
 
 @Module({

@@ -1,10 +1,11 @@
 import { Injectable, NotFoundException } from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
 import { Repository } from "typeorm";
-import { ItemsOrder } from "./ItemOrder.entity";
+import { ItemsOrder } from "./Item-order.entity";
 import { CreateItemsOrderInput } from "./dto/create-Items-order.input";
 import { OrderService } from "../order/order.service";
 import { HttpUtilService } from "packages/httpUtil/httpUtil.service";
+import { UpdateAmountInput } from "./dto/update-amount.input";
 
 @Injectable()
 export class ItemsOrderService {
@@ -16,14 +17,15 @@ export class ItemsOrderService {
   ) {}
 
   async updateItemAmount(
-    orderId: number,
-    itemId: number,
-    amount: number
+    updateAmountInput: UpdateAmountInput
   ): Promise<ItemsOrder> {
     const item = await this.ItemsOrderRepository.findOne({
-      where: { orderId: orderId, itemId },
+      where: {
+        orderId: updateAmountInput.orderId,
+        itemId: updateAmountInput.itemId,
+      },
     });
-    item.amount = amount;
+    item.amount = updateAmountInput.amount;
     return this.ItemsOrderRepository.save(item);
   }
 
@@ -37,15 +39,6 @@ export class ItemsOrderService {
     if (createItemsOrderInput.amount <= 0) {
       throw new NotFoundException("amount must be greater than 0");
     }
-    // if (
-    //   (
-    //     await this.ItemsOrderRepository.find({
-    //       where: { id: createItemsOrderInput.id },
-    //     })
-    //   ).length > 0
-    // ) {
-    //   throw new NotFoundException("itemsOrderId already exists");
-    // }
     if (
       (await this.getItemByIdFromItems(createItemsOrderInput.itemId)) === null
     ) {

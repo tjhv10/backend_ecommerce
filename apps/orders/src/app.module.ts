@@ -7,8 +7,8 @@ import {
 } from "@nestjs/apollo";
 import { ConfigModule } from "@nestjs/config";
 import { OrderModule } from "./order/order.module";
-import { ItemsOrderModule } from "./items_order/itemsOrder.module";
-import { ItemsOrder } from "./items_order/ItemOrder.entity";
+import { ItemsOrderModule } from "./items_order/Item-order.module";
+import { ItemsOrder } from "./items_order/Item-order.entity";
 import { Order } from "./order/order.entity";
 import { DataloaderModule } from "../dataloader/dataloader.module";
 import { DataloaderService } from "../dataloader/dataloader.service";

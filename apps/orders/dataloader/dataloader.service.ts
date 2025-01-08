@@ -1,8 +1,8 @@
 import { Injectable } from "@nestjs/common";
 import * as DataLoader from "dataloader";
 import { IDataloaders } from "./dataloader.interface";
-import { ItemsOrder } from "apps/orders/src/items_order/ItemOrder.entity";
-import { ItemsOrderService } from "apps/orders/src/items_order/itemsOrder.service";
+import { ItemsOrder } from "apps/orders/src/items_order/Item-order.entity";
+import { ItemsOrderService } from "apps/orders/src/items_order/Item-order.service";
 
 @Injectable()
 export class DataloaderService {

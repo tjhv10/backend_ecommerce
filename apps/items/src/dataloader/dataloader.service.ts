@@ -2,7 +2,7 @@ import { Injectable } from "@nestjs/common";
 import * as DataLoader from "dataloader";
 import { IDataloaders } from "./dataloader.interface";
 import { Category } from "../category/categories.entity";
-import { ItemsCategoriesService } from "../Item_Category/ItemCategory.service";
+import { ItemsCategoriesService } from "../Item_Category/Item-category.service";
 
 @Injectable()
 export class DataloaderService {

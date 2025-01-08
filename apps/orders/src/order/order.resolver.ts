@@ -9,7 +9,7 @@ import {
 } from "@nestjs/graphql";
 import { OrderService } from "./order.service";
 import { Order as Order } from "./order.entity";
-import { ItemsOrder } from "../items_order/ItemOrder.entity";
+import { ItemsOrder } from "../items_order/Item-order.entity";
 import { IDataloaders } from "apps/orders/dataloader/dataloader.interface";
 
 @Resolver(() => Order)

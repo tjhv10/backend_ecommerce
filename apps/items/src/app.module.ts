@@ -7,11 +7,11 @@ import {
   ApolloFederationDriverConfig,
 } from "@nestjs/apollo";
 import { CatergoyModule } from "./category/categories.module";
-import { ItemCategoriesModule } from "./Item_Category/ItemCategory.module";
+import { ItemCategoriesModule } from "./Item_Category/Item-category.module";
 import { ConfigModule } from "@nestjs/config";
 import { Item } from "./items/item.entity";
 import { Category } from "./category/categories.entity";
-import { ItemsCategories } from "./Item_Category/ItemCategory.entity";
+import { ItemsCategories } from "./Item_Category/Item-category.entity";
 import { DataloaderModule } from "./dataloader/dataloader.module";
 import { DataloaderService } from "./dataloader/dataloader.service";
 

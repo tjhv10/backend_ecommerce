@@ -6,22 +6,20 @@ import {
   Parent,
   Query,
 } from "@nestjs/graphql";
-import { ItemsOrderService } from "./itemsOrder.service";
-import { ItemsOrder } from "./ItemOrder.entity";
+import { ItemsOrderService } from "./Item-order.service";
+import { ItemsOrder } from "./Item-order.entity";
 import { Item } from "apps/items/src/items/item.entity";
 import { CreateItemsOrderInput } from "./dto/create-Items-order.input";
+import { UpdateAmountInput } from "./dto/update-amount.input";
 
 @Resolver(() => ItemsOrder)
 export class ItemsOrderResolver {
   constructor(private itemsOrderService: ItemsOrderService) {}
   @Mutation(() => ItemsOrder)
   updateItemAmount(
-    // TODO: change this to input
-    @Args("item_id") item_id: number,
-    @Args("order_id") order_id: number,
-    @Args("amount") amount: number
+    @Args("createItemsOrderInput") updateAmountInput: UpdateAmountInput
   ) {
-    return this.itemsOrderService.updateItemAmount(item_id, order_id, amount);
+    return this.itemsOrderService.updateItemAmount(updateAmountInput);
   }
 
   @Query(() => Item)
