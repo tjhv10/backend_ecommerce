@@ -33,7 +33,7 @@ export class ItemsOrderService {
     return this.httpUtilService.getItemByIdFromItems(itemId);
   }
 
-  async createrItemOrder(
+  async createItemOrder(
     createItemsOrderInput: CreateItemsOrderInput
   ): Promise<ItemsOrder> {
     if (createItemsOrderInput.amount <= 0) {

@@ -36,7 +36,7 @@ export class ItemsOrderResolver {
   async createItemOrder(
     @Args("createItemsOrderInput") createItemsOrderInput: CreateItemsOrderInput
   ) {
-    return this.itemsOrderService.createrItemOrder(createItemsOrderInput);
+    return this.itemsOrderService.createItemOrder(createItemsOrderInput);
   }
 
   @ResolveField("item", () => Item)
