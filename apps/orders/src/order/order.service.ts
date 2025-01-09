@@ -29,6 +29,7 @@ export class OrderService {
     const order = this.orderRepository.create({
       orderDate: orderDate,
     });
+
     return this.orderRepository.save(order);
   }
 

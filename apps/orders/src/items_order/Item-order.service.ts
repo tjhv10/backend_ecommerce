@@ -16,9 +16,7 @@ export class ItemsOrderService {
     private readonly httpUtilService: HttpUtilService
   ) {}
 
-  async updateItemAmount(
-    updateAmountInput: UpdateAmountInput
-  ): Promise<ItemsOrder> {
+  async updateItemAmount(updateAmountInput: UpdateAmountInput): Promise<ItemsOrder> {
     const item = await this.ItemsOrderRepository.findOne({
       where: {
         orderId: updateAmountInput.orderId,
@@ -33,24 +31,16 @@ export class ItemsOrderService {
     return this.httpUtilService.getItemByIdFromItems(itemId);
   }
 
-  async createItemOrder(
-    createItemsOrderInput: CreateItemsOrderInput
-  ): Promise<ItemsOrder> {
+  async createItemOrder(createItemsOrderInput: CreateItemsOrderInput): Promise<ItemsOrder> {
     if (createItemsOrderInput.amount <= 0) {
       throw new NotFoundException("amount must be greater than 0");
     }
-    if (
-      (await this.getItemByIdFromItems(createItemsOrderInput.itemId)) === null
-    ) {
+    if ((await this.getItemByIdFromItems(createItemsOrderInput.itemId)) === null) {
       throw new NotFoundException("itemId does not exist");
     }
-    await this.orderService.createOrder(
-      createItemsOrderInput.orderId,
-      new Date()
-    );
-    const newItems_Order = this.ItemsOrderRepository.create(
-      createItemsOrderInput
-    );
+    await this.orderService.createOrder(createItemsOrderInput.orderId, new Date());
+
+    const newItems_Order = this.ItemsOrderRepository.create(createItemsOrderInput);
     return this.ItemsOrderRepository.save(newItems_Order);
   }
 
@@ -69,9 +59,7 @@ export class ItemsOrderService {
     return found;
   }
 
-  async getItemsOfOrderByBatch(
-    orderIds: readonly number[]
-  ): Promise<ItemsOrder[][]> {
+  async getItemsOfOrderByBatch(orderIds: readonly number[]): Promise<ItemsOrder[][]> {
     return Promise.all(orderIds.map((id) => this.getItemsOrdersByOrderId(id)));
   }
 }
