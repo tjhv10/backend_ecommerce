@@ -1,10 +1,7 @@
 import { Module } from "@nestjs/common";
 import { TypeOrmModule } from "@nestjs/typeorm";
 import { GraphQLModule } from "@nestjs/graphql";
-import {
-  ApolloFederationDriver,
-  ApolloFederationDriverConfig,
-} from "@nestjs/apollo";
+import { ApolloFederationDriver, ApolloFederationDriverConfig } from "@nestjs/apollo";
 import { ConfigModule } from "@nestjs/config";
 import { OrderModule } from "./order/order.module";
 import { ItemsOrderModule } from "./items_order/Item-order.module";
@@ -24,7 +21,7 @@ import { DataloaderService } from "../dataloader/dataloader.service";
       password: process.env.DB_PASSWORD,
       database: process.env.DATABASE,
       autoLoadEntities: true,
-      synchronize: true,
+      synchronize: process.env.DB_SYNCHRONIZE === "true",
       entities: [ItemsOrder, Order],
     }),
     GraphQLModule.forRootAsync<ApolloFederationDriverConfig>({

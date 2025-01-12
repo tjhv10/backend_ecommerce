@@ -2,10 +2,7 @@ import { Module } from "@nestjs/common";
 import { TypeOrmModule } from "@nestjs/typeorm";
 import { GraphQLModule } from "@nestjs/graphql";
 import { ItemModule } from "./items/item.module";
-import {
-  ApolloFederationDriver,
-  ApolloFederationDriverConfig,
-} from "@nestjs/apollo";
+import { ApolloFederationDriver, ApolloFederationDriverConfig } from "@nestjs/apollo";
 import { CatergoyModule } from "./category/categories.module";
 import { ItemCategoriesModule } from "./Item_Category/Item-category.module";
 import { ConfigModule } from "@nestjs/config";
@@ -26,7 +23,7 @@ import { DataloaderService } from "./dataloader/dataloader.service";
       password: process.env.DB_PASSWORD,
       database: process.env.DATABASE,
       autoLoadEntities: true,
-      synchronize: true,
+      synchronize: process.env.DB_SYNCHRONIZE === "true",
       entities: [Item, Category, ItemsCategories],
     }),
     GraphQLModule.forRootAsync<ApolloFederationDriverConfig>({
