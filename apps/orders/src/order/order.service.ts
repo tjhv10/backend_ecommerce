@@ -22,10 +22,7 @@ export class OrderService {
     return this.orderRepository.findOne({ where: { id } });
   }
 
-  async createOrder(id: number, orderDate: Date) {
-    if ((await this.getOrdersById(id)) !== null) {
-      return;
-    }
+  async createOrder(orderDate: Date) {
     const order = this.orderRepository.create({
       orderDate: orderDate,
     });

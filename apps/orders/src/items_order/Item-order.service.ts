@@ -31,17 +31,24 @@ export class ItemsOrderService {
     return this.httpUtilService.getItemByIdFromItems(itemId);
   }
 
-  async createItemOrder(createItemsOrderInput: CreateItemsOrderInput): Promise<ItemsOrder> {
-    if (createItemsOrderInput.amount <= 0) {
-      throw new NotFoundException("amount must be greater than 0");
+  async createItemsOrder(createItemsOrderInputs: CreateItemsOrderInput[]): Promise<ItemsOrder[]> {
+    createItemsOrderInputs.forEach((input) => {
+      if (input.amount <= 0) {
+        throw new NotFoundException("amount must be greater than 0");
+      }
+    });
+    for (const input of createItemsOrderInputs) {
+      if ((await this.getItemByIdFromItems(input.itemId)) === null) {
+        throw new NotFoundException(`itemId ${input.itemId} does not exist`);
+      }
     }
-    if ((await this.getItemByIdFromItems(createItemsOrderInput.itemId)) === null) {
-      throw new NotFoundException("itemId does not exist");
+    const order = await this.orderService.createOrder(new Date());
+    const newItemsOrder = [];
+    for (const input of createItemsOrderInputs) {
+      const newItemOrder = this.ItemsOrderRepository.create({ orderId: order.id, ...input });
+      newItemsOrder.push(await this.ItemsOrderRepository.save(newItemOrder));
     }
-    await this.orderService.createOrder(createItemsOrderInput.orderId, new Date());
-
-    const newItems_Order = this.ItemsOrderRepository.create(createItemsOrderInput);
-    return this.ItemsOrderRepository.save(newItems_Order);
+    return newItemsOrder;
   }
 
   async getItemsOrder(): Promise<ItemsOrder[]> {

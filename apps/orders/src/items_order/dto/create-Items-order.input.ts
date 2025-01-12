@@ -6,9 +6,6 @@ export class CreateItemsOrderInput {
   @Field(() => Int)
   itemId: number;
 
-  @Field(() => Int)
-  orderId: number;
-
   @IsInt()
   @Field(() => Int)
   amount: number;

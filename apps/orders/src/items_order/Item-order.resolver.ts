@@ -1,11 +1,4 @@
-import {
-  Resolver,
-  Mutation,
-  Args,
-  ResolveField,
-  Parent,
-  Query,
-} from "@nestjs/graphql";
+import { Resolver, Mutation, Args, ResolveField, Parent, Query } from "@nestjs/graphql";
 import { ItemsOrderService } from "./Item-order.service";
 import { ItemsOrder } from "./Item-order.entity";
 import { Item } from "apps/items/src/items/item.entity";
@@ -16,9 +9,7 @@ import { UpdateAmountInput } from "./dto/update-amount.input";
 export class ItemsOrderResolver {
   constructor(private itemsOrderService: ItemsOrderService) {}
   @Mutation(() => ItemsOrder)
-  updateItemAmount(
-    @Args("createItemsOrderInput") updateAmountInput: UpdateAmountInput
-  ) {
+  updateItemAmount(@Args("createItemsOrderInput") updateAmountInput: UpdateAmountInput) {
     return this.itemsOrderService.updateItemAmount(updateAmountInput);
   }
 
@@ -32,17 +23,16 @@ export class ItemsOrderResolver {
     return this.itemsOrderService.getItemsOrder();
   }
 
-  @Mutation(() => ItemsOrder)
-  async createItemOrder(
-    @Args("createItemsOrderInput") createItemsOrderInput: CreateItemsOrderInput
+  @Mutation(() => [ItemsOrder])
+  async createItemsOrder(
+    @Args("createItemsOrderInput", { type: () => [CreateItemsOrderInput] })
+    createItemsOrderInput: CreateItemsOrderInput[]
   ) {
-    return this.itemsOrderService.createItemOrder(createItemsOrderInput);
+    return this.itemsOrderService.createItemsOrder(createItemsOrderInput);
   }
 
   @ResolveField("item", () => Item)
   async item(@Parent() itemsOrder: ItemsOrder) {
-    return (
-      await this.itemsOrderService.getItemByIdFromItems(itemsOrder.itemId)
-    ).getItemById;
+    return (await this.itemsOrderService.getItemByIdFromItems(itemsOrder.itemId)).getItemById;
   }
 }
