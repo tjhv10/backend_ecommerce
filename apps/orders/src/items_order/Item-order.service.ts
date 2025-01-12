@@ -6,6 +6,7 @@ import { CreateItemsOrderInput } from "./dto/create-Items-order.input";
 import { OrderService } from "../order/order.service";
 import { HttpUtilService } from "packages/httpUtil/httpUtil.service";
 import { UpdateAmountInput } from "./dto/update-amount.input";
+import { Item } from "apps/items/src/items/item.entity";
 
 @Injectable()
 export class ItemsOrderService {
@@ -27,7 +28,10 @@ export class ItemsOrderService {
     return this.ItemsOrderRepository.save(item);
   }
 
-  async getItemByIdFromItems(itemId: number): Promise<any> {
+  async getItemsIds(): Promise<Item[]> {
+    return this.httpUtilService.getItemsIds();
+  }
+  async getItemByIdFromItems(itemId: number): Promise<Item> {
     return this.httpUtilService.getItemByIdFromItems(itemId);
   }
 
@@ -37,17 +41,23 @@ export class ItemsOrderService {
         throw new NotFoundException("amount must be greater than 0");
       }
     });
-    for (const input of createItemsOrderInputs) {
-      if ((await this.getItemByIdFromItems(input.itemId)) === null) {
-        throw new NotFoundException(`itemId ${input.itemId} does not exist`);
-      }
-    }
+    await Promise.all(
+      createItemsOrderInputs.map(async (input) => {
+        const items = await this.getItemsIds();
+        console.log(items);
+        if (!items.some((item) => item.id === input.itemId)) {
+          throw new NotFoundException(`itemId ${input.itemId} does not exist`);
+        }
+      })
+    );
     const order = await this.orderService.createOrder(new Date());
     const newItemsOrder = [];
-    for (const input of createItemsOrderInputs) {
-      const newItemOrder = this.ItemsOrderRepository.create({ orderId: order.id, ...input });
-      newItemsOrder.push(await this.ItemsOrderRepository.save(newItemOrder));
-    }
+    await Promise.all(
+      createItemsOrderInputs.map(async (input) => {
+        const newItemOrder = this.ItemsOrderRepository.create({ orderId: order.id, ...input });
+        newItemsOrder.push(await this.ItemsOrderRepository.save(newItemOrder));
+      })
+    );
     return newItemsOrder;
   }
 

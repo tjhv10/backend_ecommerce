@@ -25,10 +25,19 @@ export class HttpUtilService {
       }
     `;
 
-    return (
-      await firstValueFrom(
-        this.httpService.post(process.env.ITEMS_URL, { query })
-      )
-    ).data.data;
+    return (await firstValueFrom(this.httpService.post(process.env.ITEMS_URL, { query }))).data.data
+      .getItemById;
+  }
+  async getItemsIds() {
+    const query = `
+      query {
+        getItems {
+          id
+        }
+      }
+    `;
+
+    return (await firstValueFrom(this.httpService.post(process.env.ITEMS_URL, { query }))).data.data
+      .getItems;
   }
 }
