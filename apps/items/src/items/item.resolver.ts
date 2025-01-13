@@ -1,12 +1,4 @@
-import {
-  Resolver,
-  Query,
-  Args,
-  Mutation,
-  ResolveField,
-  Parent,
-  Context,
-} from "@nestjs/graphql";
+import { Resolver, Query, Args, Mutation, ResolveField, Parent, Context } from "@nestjs/graphql";
 import { ItemService } from "./item.service";
 import { Item } from "./item.entity";
 import { IDataloaders } from "../dataloader/dataloader.interface";
@@ -23,35 +15,32 @@ export class ItemResolver {
   }
 
   @Query(() => [Item])
-  getItems() {
+  async getItems() {
     return this.itemService.getItems();
   }
 
   @Query(() => Boolean)
-  doesIdExist(@Args("id") id: number) {
+  async doesIdExist(@Args("id") id: number) {
     return this.itemService.isIdExist(id);
   }
 
   @Mutation(() => Item)
-  deleteItem(@Args("id") id: number) {
+  async deleteItem(@Args("id") id: number) {
     return this.itemService.deleteItem(id);
   }
 
   @Mutation(() => Item)
-  updateItemPrice(@Args("id") id: number, @Args("price") price: number) {
+  async updateItemPrice(@Args("id") id: number, @Args("price") price: number) {
     return this.itemService.updateItemPrice(id, price);
   }
 
   @Mutation(() => Item)
-  updateItemStatus(@Args("id") id: number, @Args("status") status: ItemStatus) {
+  async updateItemStatus(@Args("id") id: number, @Args("status") status: ItemStatus) {
     return this.itemService.updateItemStatus(id, status);
   }
 
   @ResolveField("categories", () => [Category])
-  async getCategories(
-    @Parent() item: Item,
-    @Context() { loaders }: { loaders: IDataloaders }
-  ) {
+  async getCategories(@Parent() item: Item, @Context() { loaders }: { loaders: IDataloaders }) {
     return loaders.itemCategoryLoader.load(item.id);
   }
 }

@@ -28,7 +28,7 @@ export class HttpUtilService {
     return (await firstValueFrom(this.httpService.post(process.env.ITEMS_URL, { query }))).data.data
       .getItemById;
   }
-  async getItemsIds() {
+  async getItemsIds(): Promise<Item[]> {
     const query = `
       query {
         getItems {
